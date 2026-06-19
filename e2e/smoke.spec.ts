@@ -64,6 +64,6 @@ test("car page at-a-glance visible on mobile", async ({ page }) => {
   const box = await atAGlance.boundingBox();
   expect(box).not.toBeNull();
   if (box) {
-    expect(box.y).toBeLessThan(844);
+    expect(box.y + box.height).toBeLessThanOrEqual(844);
   }
 });
