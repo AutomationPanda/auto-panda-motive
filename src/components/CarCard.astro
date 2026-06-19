@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { resolveImage } from "../utils/image";
+
+interface Props {
+  car: CollectionEntry<"cars">;
+}
+
+const { car } = Astro.props;
+const { name, hook, heroImage, qrSlug, section } = car.data;
+---
+
+<a class="car-card" href={`/cars/${qrSlug}/`}>
+  <img src={resolveImage(heroImage)} alt={name} loading="lazy" />
+  <div class="car-card-body">
+    {section === "memory-lane" && <span class="section-label">Memory Lane</span>}
+    <h3>{name}</h3>
+    <p>{hook}</p>
+  </div>
+</a>
+
+<style>
+  .car-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    transition: border-color 0.15s ease;
+  }
+
+  .car-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .car-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: var(--color-bg-alt);
+  }
+
+  .car-card-body {
+    padding: 1rem;
+  }
+
+  .car-card-body h3 {
+    margin: 0.25rem 0;
+    font-weight: 600;
+  }
+
+  .car-card-body p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+</style>

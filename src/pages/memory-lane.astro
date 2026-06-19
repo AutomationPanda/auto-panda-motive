@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../components/Layout.astro";
+import CarCard from "../components/CarCard.astro";
+
+const cars = (await getCollection("cars"))
+  .filter((car) => car.data.section === "memory-lane")
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+---
+
+<Layout title="Memory Lane" description="Cars from the past in the Auto Panda Motive collection.">
+  <div class="container page">
+    <h1>Memory Lane</h1>
+    <p class="intro">Cars I owned in the past but no longer hold in the collection.</p>
+    <div class="car-grid">
+      {cars.map((car) => <CarCard car={car} />)}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page {
+    padding: 2rem 0;
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    max-width: 40rem;
+  }
+</style>
