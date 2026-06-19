@@ -9,6 +9,8 @@ interface Props {
 
 const { title, description = "Stories and pictures from the Auto Panda Motive garage." } = Astro.props;
 const siteName = "Auto Panda Motive";
+const faviconLight = withBase("/favicon.svg");
+const faviconDark = withBase("/favicon-dark.svg");
 ---
 
 <!doctype html>
@@ -16,8 +18,25 @@ const siteName = "Auto Panda Motive";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>
+    <meta name="description" content={description} />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={faviconLight}
+    />
+    <script is:inline define:vars={{ faviconLight, faviconDark }}>
       (function () {
+        function logoFor(theme) {
+          return theme === "dark" ? faviconDark : faviconLight;
+        }
+
+        function applyTheme(theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+          document.querySelectorAll(".site-logo-icon").forEach(function (icon) {
+            icon.src = logoFor(theme);
+          });
+        }
+
         var stored = localStorage.getItem("theme");
         var theme = "light";
         if (stored === "light" || stored === "dark") {
@@ -25,11 +44,10 @@ const siteName = "Auto Panda Motive";
         } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
           theme = "dark";
         }
-        document.documentElement.setAttribute("data-theme", theme);
+        applyTheme(theme);
+        window.__applySiteTheme = applyTheme;
       })();
     </script>
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <title>{title === siteName ? title : `${title} · ${siteName}`}</title>
   </head>
   <body>
@@ -58,7 +76,7 @@ const siteName = "Auto Panda Motive";
     </main>
     <footer class="site-footer">
       <div class="container footer-inner">
-        <img src={withBase("/favicon.svg")} alt="" width="24" height="24" />
+        <img class="site-logo-icon" src={faviconLight} alt="" width="24" height="24" />
         <span>{siteName}</span>
       </div>
     </footer>
@@ -76,10 +94,18 @@ const siteName = "Auto Panda Motive";
 
         syncToggle();
 
+        if (typeof window.__applySiteTheme === "function") {
+          window.__applySiteTheme(document.documentElement.getAttribute("data-theme") || "light");
+        }
+
         toggle.addEventListener("click", function () {
           var isDark = document.documentElement.getAttribute("data-theme") === "dark";
           var next = isDark ? "light" : "dark";
-          document.documentElement.setAttribute("data-theme", next);
+          if (typeof window.__applySiteTheme === "function") {
+            window.__applySiteTheme(next);
+          } else {
+            document.documentElement.setAttribute("data-theme", next);
+          }
           localStorage.setItem("theme", next);
           syncToggle();
         });
