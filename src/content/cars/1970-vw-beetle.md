@@ -8,7 +8,7 @@ hook: "My first classic, a lifelong project that never really ends."
 heroImage: /images/cars/1970-vw-beetle/placeholder.svg
 gallery: []
 qrSlug: 1970-vw-beetle
-sortOrder: 1
+sortOrder: 2
 ---
 
 The Beetle that started it all.

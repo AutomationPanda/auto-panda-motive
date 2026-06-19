@@ -8,5 +8,5 @@ hook: "Daily refinement: comfort meets all-wheel drive."
 heroImage: /images/cars/2006-mercedes-c280/placeholder.svg
 gallery: []
 qrSlug: 2006-mercedes-c280
-sortOrder: 2
+sortOrder: 1
 ---
