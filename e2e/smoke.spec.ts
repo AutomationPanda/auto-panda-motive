@@ -17,14 +17,14 @@ const CAR_NAMES: Record<string, string> = {
 };
 
 test("home page shows intro and garage cards", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("./");
   await expect(page.getByRole("heading", { name: "Auto Panda Motive" })).toBeVisible();
   await expect(page.getByText("personal garage")).toBeVisible();
   await expect(page.getByRole("link", { name: /Volkswagen Beetle/i })).toBeVisible();
 });
 
 test("garage page lists owned cars", async ({ page }) => {
-  await page.goto("/garage/");
+  await page.goto("garage/");
   await expect(page.getByRole("heading", { name: "The Garage" })).toBeVisible();
   await expect(page.getByRole("link", { name: /Volkswagen Beetle/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /Mercedes-Benz C280/i })).toBeVisible();
@@ -32,7 +32,7 @@ test("garage page lists owned cars", async ({ page }) => {
 });
 
 test("memory lane lists former cars", async ({ page }) => {
-  await page.goto("/memory-lane/");
+  await page.goto("memory-lane/");
   await expect(page.getByRole("heading", { name: "Memory Lane" })).toBeVisible();
   await expect(page.getByRole("link", { name: /Karmann Ghia/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /Chrysler 300/i })).toBeVisible();
@@ -40,25 +40,25 @@ test("memory lane lists former cars", async ({ page }) => {
 
 for (const slug of CAR_SLUGS) {
   test(`car page /cars/${slug}/ renders`, async ({ page }) => {
-    await page.goto(`/cars/${slug}/`);
+    await page.goto(`cars/${slug}/`);
     await expect(page.getByRole("heading", { name: CAR_NAMES[slug] })).toBeVisible();
   });
 }
 
 test("about page loads", async ({ page }) => {
-  await page.goto("/about/");
+  await page.goto("about/");
   await expect(page.getByRole("heading", { name: "About" })).toBeVisible();
 });
 
 test("404 page shows garage link", async ({ page }) => {
-  const response = await page.goto("/cars/nonexistent-slug/");
+  const response = await page.goto("cars/nonexistent-slug/", { waitUntil: "domcontentloaded" });
   expect(response?.status()).toBe(404);
   await expect(page.getByRole("link", { name: /Go to The Garage/i })).toBeVisible();
 });
 
 test("car page at-a-glance visible on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/cars/1970-vw-beetle/");
+  await page.goto("cars/1970-vw-beetle/");
   const atAGlance = page.locator(".at-a-glance");
   await expect(atAGlance).toBeVisible();
   const box = await atAGlance.boundingBox();

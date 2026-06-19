@@ -30,7 +30,7 @@ Start the development server with hot reload:
 npm run dev
 ```
 
-Open [http://localhost:4321](http://localhost:4321).
+Open [http://localhost:4321/auto-panda-motive/](http://localhost:4321/auto-panda-motive/).
 
 Build the static site and preview the production output:
 
@@ -38,6 +38,18 @@ Build the static site and preview the production output:
 npm run build
 npm run preview
 ```
+
+Preview at [http://localhost:4321/auto-panda-motive/](http://localhost:4321/auto-panda-motive/).
+
+## Deploy
+
+The site publishes to GitHub Pages at:
+
+**https://automationpanda.github.io/auto-panda-motive/**
+
+Enable GitHub Pages in repo Settings (Source: GitHub Actions), then push to `main`.
+
+When you register a custom domain later, update `astro.config.mjs` (`site` and `base: "/"`), add `public/CNAME`, and configure DNS.
 
 ## Tests
 

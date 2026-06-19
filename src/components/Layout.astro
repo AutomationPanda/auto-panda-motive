@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../utils/url";
 
 interface Props {
   title: string;
@@ -16,18 +17,18 @@ const siteName = "Auto Panda Motive";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <title>{title === siteName ? title : `${title} · ${siteName}`}</title>
   </head>
   <body>
     <header class="site-header">
       <nav class="container nav">
-        <a class="logo" href="/">{siteName}</a>
+        <a class="logo" href={withBase("/")}>{siteName}</a>
         <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/garage/">The Garage</a>
-          <a href="/memory-lane/">Memory Lane</a>
-          <a href="/about/">About</a>
+          <a href={withBase("/")}>Home</a>
+          <a href={withBase("/garage/")}>The Garage</a>
+          <a href={withBase("/memory-lane/")}>Memory Lane</a>
+          <a href={withBase("/about/")}>About</a>
         </div>
       </nav>
     </header>
@@ -36,7 +37,7 @@ const siteName = "Auto Panda Motive";
     </main>
     <footer class="site-footer">
       <div class="container footer-inner">
-        <img src="/favicon.svg" alt="" width="24" height="24" />
+        <img src={withBase("/favicon.svg")} alt="" width="24" height="24" />
         <span>{siteName}</span>
       </div>
     </footer>

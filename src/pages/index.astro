@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import CarCard from "../components/CarCard.astro";
+import { withBase } from "../utils/url";
 
 const garageCars = (await getCollection("cars"))
   .filter((car) => car.data.section === "garage")
@@ -19,7 +20,7 @@ const garageCars = (await getCollection("cars"))
     <div class="car-grid">
       {garageCars.map((car) => <CarCard car={car} />)}
     </div>
-    <p class="memory-link"><a href="/memory-lane/">Visit Memory Lane →</a></p>
+    <p class="memory-link"><a href={withBase("/memory-lane/")}>Visit Memory Lane →</a></p>
   </div>
 </Layout>
 

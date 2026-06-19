@@ -1,12 +1,13 @@
 ---
 import Layout from "../components/Layout.astro";
+import { withBase } from "../utils/url";
 ---
 
 <Layout title="Page not found">
   <div class="container page">
     <h1>Page not found</h1>
     <p>That route doesn't exist. Maybe try a car in The Garage instead.</p>
-    <p><a href="/garage/">Go to The Garage -&gt;</a></p>
+    <p><a href={withBase("/garage/")}>Go to The Garage -&gt;</a></p>
   </div>
 </Layout>
 
