@@ -1,0 +1,109 @@
+---
+import { resolveImage } from "../utils/image";
+
+interface Props {
+  images: string[];
+  alt: string;
+}
+
+const { images, alt } = Astro.props;
+---
+
+{
+  images.length > 0 && (
+    <section class="gallery-section">
+      <h2>Gallery</h2>
+      <div class="gallery" data-gallery>
+        {images.map((src, index) => (
+          <button type="button" class="gallery-item" data-index={index} aria-label={`Open image ${index + 1}`}>
+            <img src={resolveImage(src)} alt={`${alt} - photo ${index + 1}`} loading="lazy" />
+          </button>
+        ))}
+      </div>
+      <dialog class="lightbox" data-lightbox>
+        <button type="button" class="lightbox-close" data-close aria-label="Close">
+          x
+        </button>
+        <img src="" alt="" data-lightbox-image />
+      </dialog>
+    </section>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
+    const dialog = gallery.parentElement?.querySelector<HTMLDialogElement>("[data-lightbox]");
+    const lightboxImage = dialog?.querySelector<HTMLImageElement>("[data-lightbox-image]");
+    if (!dialog || !lightboxImage) return;
+
+    gallery.querySelectorAll<HTMLButtonElement>(".gallery-item").forEach((button) => {
+      button.addEventListener("click", () => {
+        const img = button.querySelector("img");
+        if (!(img instanceof HTMLImageElement)) return;
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        dialog.showModal();
+      });
+    });
+
+    dialog.querySelector<HTMLElement>("[data-close]")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>
+
+<style>
+  .gallery-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+    cursor: pointer;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .lightbox {
+    border: none;
+    padding: 0;
+    max-width: 95vw;
+    max-height: 95vh;
+    background: transparent;
+  }
+
+  .lightbox::backdrop {
+    background: var(--color-overlay);
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    margin: auto;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: var(--color-inverse-text);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import { render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { resolveImage } from "../utils/image";
+
+interface Props {
+  stories: CollectionEntry<"stories">[];
+}
+
+const { stories } = Astro.props;
+
+function embedVideoUrl(url: string): string | null {
+  const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+  if (youtubeMatch) return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+
+  return null;
+}
+
+const renderedStories = await Promise.all(
+  stories.map(async (story) => {
+    const { Content } = await render(story);
+    const embedUrl = story.data.videoUrl ? embedVideoUrl(story.data.videoUrl) : null;
+    return { story, Content, embedUrl };
+  })
+);
+---
+
+<section class="timeline-section">
+  <h2>Story Timeline</h2>
+  {
+    renderedStories.length === 0 ? (
+      <p class="empty">Stories coming soon.</p>
+    ) : (
+      <ol class="timeline">
+        {renderedStories.map(({ story, Content, embedUrl }) => (
+          <li class="timeline-entry">
+            <time datetime={story.data.date.toISOString()}>
+              {story.data.date.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <h3>{story.data.title}</h3>
+            <div class="content">
+              <Content />
+            </div>
+            {story.data.images.length > 0 && (
+              <div class="entry-images">
+                {story.data.images.map((src, index) => (
+                  <img src={resolveImage(src)} alt={`${story.data.title} image ${index + 1}`} loading="lazy" />
+                ))}
+              </div>
+            )}
+            {embedUrl && (
+              <div class="video-embed">
+                <iframe src={embedUrl} title={story.data.title} allowfullscreen loading="lazy" />
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</section>
+
+<style>
+  .timeline-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .empty {
+    color: var(--color-text-muted);
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid var(--color-border);
+  }
+
+  .timeline-entry {
+    padding: 0 0 2rem 1.25rem;
+    position: relative;
+  }
+
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0.35rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .timeline-entry time {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .timeline-entry h3 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .entry-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    margin-top: 0.75rem;
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>

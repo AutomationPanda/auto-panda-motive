@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import AtAGlance from "../../components/AtAGlance.astro";
+import PhotoGallery from "../../components/PhotoGallery.astro";
+import StoryTimeline from "../../components/StoryTimeline.astro";
+import { resolveImage } from "../../utils/image";
+
+interface Props {
+  car: CollectionEntry<"cars">;
+}
+
+export async function getStaticPaths() {
+  const cars = await getCollection("cars");
+  return cars.map((car) => ({
+    params: { slug: car.data.qrSlug },
+    props: { car },
+  }));
+}
+
+const { car } = Astro.props as Props;
+const allStories = await getCollection("stories");
+const carStories = allStories
+  .filter((story) => story.data.car === car.data.qrSlug)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const { Content } = await render(car);
+---
+
+<Layout title={car.data.name} description={car.data.hook}>
+  <article class="car-page">
+    <img class="hero" src={resolveImage(car.data.heroImage)} alt={car.data.name} />
+    <div class="container content">
+      <AtAGlance car={car} />
+      {car.body && (
+        <div class="overview">
+          <Content />
+        </div>
+      )}
+      <PhotoGallery images={car.data.gallery} alt={car.data.name} />
+      <StoryTimeline stories={carStories} />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .hero {
+    width: 100%;
+    max-height: 60vh;
+    object-fit: cover;
+    background: var(--color-bg-alt);
+  }
+
+  .content {
+    padding: 1.25rem 0 3rem;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .overview {
+    color: var(--color-text-muted);
+  }
+</style>
