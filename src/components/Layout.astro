@@ -16,6 +16,18 @@ const siteName = "Auto Panda Motive";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        var theme = "light";
+        if (stored === "light" || stored === "dark") {
+          theme = stored;
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          theme = "dark";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <title>{title === siteName ? title : `${title} · ${siteName}`}</title>
@@ -29,6 +41,15 @@ const siteName = "Auto Panda Motive";
           <a href={withBase("/garage/")}>The Garage</a>
           <a href={withBase("/memory-lane/")}>Memory Lane</a>
           <a href={withBase("/about/")}>About</a>
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+          >
+            ☾
+          </button>
         </div>
       </nav>
     </header>
@@ -41,6 +62,29 @@ const siteName = "Auto Panda Motive";
         <span>{siteName}</span>
       </div>
     </footer>
+    <script is:inline>
+      (function () {
+        var toggle = document.getElementById("theme-toggle");
+        if (!toggle) return;
+
+        function syncToggle() {
+          var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+          toggle.textContent = isDark ? "☀" : "☾";
+          toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+          toggle.setAttribute("aria-pressed", String(isDark));
+        }
+
+        syncToggle();
+
+        toggle.addEventListener("click", function () {
+          var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+          var next = isDark ? "light" : "dark";
+          document.documentElement.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+          syncToggle();
+        });
+      })();
+    </script>
   </body>
 </html>
 
@@ -70,7 +114,23 @@ const siteName = "Auto Panda Motive";
 
   .nav-links {
     display: flex;
+    align-items: center;
     gap: 1.25rem;
+  }
+
+  .theme-toggle {
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-alt);
+    color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-accent);
   }
 
   .nav-links a {
