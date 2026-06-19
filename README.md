@@ -1,71 +1,36 @@
 # Auto Panda Motive
 
-A personal website for showcasing hobby cars: stories, photos, and context for visitors at car shows who scan QR codes. Built with [Astro](https://astro.build/) as a static site and deployed to GitHub Pages.
+This repository contains the code for the *Auto Panda Motive* website, where I showcase my car projects.
+It shares photos and stories for all my cars, both present (in "The Garage") and past (down "Memory Lane").
+I built the site with [Astro](https://astro.build/) as a static site.
 
-**The Garage** lists cars currently owned. **Memory Lane** holds cars from the past. Each car has its own page with a photo gallery and story timeline.
+The site is hosted on GitHub Pages at: https://automationpanda.github.io/auto-panda-motive/
 
-## Requirements
 
-- [Node.js](https://nodejs.org/) 22.12 or later
+## Quickstart
 
-## Install
+[Node.js](https://nodejs.org/) 22.12+ is required.
 
 ```bash
-git clone https://github.com/AutomationPanda/auto-panda-motive.git
-cd auto-panda-motive
+# Running the app locally in dev mode
 npm ci
-```
-
-Install Playwright browsers (first time only, needed for tests):
-
-```bash
-npx playwright install chromium
-```
-
-## Run locally
-
-Start the development server with hot reload:
-
-```bash
 npm run dev
-```
 
-Open [http://localhost:4321/auto-panda-motive/](http://localhost:4321/auto-panda-motive/).
-
-Build the static site and preview the production output:
-
-```bash
+# Building and running the static site
 npm run build
 npm run preview
-```
 
-Preview at [http://localhost:4321/auto-panda-motive/](http://localhost:4321/auto-panda-motive/).
+# Installing Playwright browsers (one-time setup)
+npx playwright install chromium
 
-## Deploy
-
-The site publishes to GitHub Pages at:
-
-**https://automationpanda.github.io/auto-panda-motive/**
-
-Enable GitHub Pages in repo Settings (Source: GitHub Actions), then push to `main`.
-
-When you register a custom domain later, update `astro.config.mjs` (`site` and `base: "/"`), add `public/CNAME`, and configure DNS.
-
-## Tests
-
-Run the Playwright smoke test suite (builds are tested against the preview server automatically):
-
-```bash
+# Run Playwright tests
 npm run test:e2e
 ```
 
-Run a production build first if you have not built recently:
+The app runs locally at: [http://localhost:4321/auto-panda-motive/](http://localhost:4321/auto-panda-motive/)
 
-```bash
-npm run build && npm run test:e2e
-```
 
-## Development workflow
+## Development
 
 This project is built and maintained with [Cursor](https://cursor.com/) and the [Superpowers](https://github.com/cursor/plugins) plugin. Superpowers provides structured skills for brainstorming, planning, test-driven development, and verification rather than ad hoc coding.
 
@@ -78,6 +43,7 @@ Typical flow for a new feature or change:
 5. **Deploy**: merge to `main`; GitHub Actions builds, tests, and publishes to GitHub Pages
 
 Design decisions and specs live under `docs/superpowers/specs/`. Project rules for the AI agent (for example, prose style) live in `.cursor/rules/`.
+
 
 ## Project structure
 
@@ -102,6 +68,7 @@ auto-panda-motive/
 ├── playwright.config.ts
 └── LICENSE                 # Dual license: open source code, reserved content
 ```
+
 
 ## Content
 
