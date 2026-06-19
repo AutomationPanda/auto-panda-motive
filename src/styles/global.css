@@ -28,6 +28,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -58,6 +62,15 @@ img {
 .container {
   width: min(100% - 2rem, var(--max-width));
   margin-inline: auto;
+}
+
+.page {
+  padding: 2rem 0;
+}
+
+.intro {
+  color: var(--color-text-muted);
+  max-width: 40rem;
 }
 
 .section-label {
