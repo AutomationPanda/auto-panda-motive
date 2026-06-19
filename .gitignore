@@ -142,7 +142,11 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 
+# Superpowers brainstorming sessions
 .superpowers/
+
+# Git worktrees
+.worktrees/
 
 # Playwright
 test-results/
