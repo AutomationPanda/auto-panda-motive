@@ -81,7 +81,7 @@ export default defineConfig({
 - [ ] **Step 4: Verify build**
 
 Run: `npm run build`  
-Expected: PASS — empty site builds to `dist/`
+Expected: PASS: empty site builds to `dist/`
 
 - [ ] **Step 5: Commit**
 
@@ -249,7 +249,7 @@ year: 1970
 make: Volkswagen
 model: Beetle
 section: garage
-hook: "My first classic — a lifelong project that never really ends."
+hook: "My first classic, a lifelong project that never really ends."
 heroImage: /images/cars/1970-vw-beetle/placeholder.svg
 gallery: []
 qrSlug: 1970-vw-beetle
@@ -268,7 +268,7 @@ year: 2006
 make: Mercedes-Benz
 model: C280 4MATIC
 section: garage
-hook: "Daily refinement — comfort meets all-wheel drive."
+hook: "Daily refinement: comfort meets all-wheel drive."
 heroImage: /images/cars/2006-mercedes-c280/placeholder.svg
 gallery: []
 qrSlug: 2006-mercedes-c280
@@ -285,7 +285,7 @@ year: 1979
 make: Volkswagen
 model: Bus
 section: garage
-hook: "The long game — a restoration with stories still being written."
+hook: "The long game: a restoration with stories still being written."
 heroImage: /images/cars/1979-vw-bus/placeholder.svg
 gallery: []
 qrSlug: 1979-vw-bus
@@ -302,7 +302,7 @@ year: 1974
 make: Volkswagen
 model: "Karmann Ghia Convertible"
 section: memory-lane
-hook: "A convertible chapter since closed — still fondly remembered."
+hook: "A convertible chapter since closed, still fondly remembered."
 heroImage: /images/cars/1974-karmann-ghia/placeholder.svg
 gallery: []
 qrSlug: 1974-karmann-ghia
@@ -339,7 +339,7 @@ date: 2023-08-12
 images: []
 ---
 
-Finally turned the key and rolled out of the driveway. Nothing perfect — everything earned.
+Finally turned the key and rolled out of the driveway. Nothing was perfect. Everything was earned.
 ```
 
 Create `src/content/stories/bus-engine-pull.md`:
@@ -358,7 +358,7 @@ Pulled the engine today. The project gets real when the bay is empty.
 - [ ] **Step 5: Verify build validates content**
 
 Run: `npm run build`  
-Expected: PASS — five cars and two stories compile
+Expected: PASS: five cars and two stories compile
 
 - [ ] **Step 6: Commit**
 
@@ -647,7 +647,7 @@ const cars = (await getCollection("cars"))
 <Layout title="The Garage" description="Cars currently in the Auto Panda Motive collection.">
   <div class="container page">
     <h1>The Garage</h1>
-    <p class="intro">Cars I currently own — finished, daily drivers, and forever projects alike.</p>
+    <p class="intro">Cars I currently own: finished, daily drivers, and forever projects alike.</p>
     <div class="car-grid">
       {cars.map((car) => <CarCard car={car} />)}
     </div>
@@ -720,7 +720,7 @@ const garageCars = (await getCollection("cars"))
   <div class="container page">
     <h1>Auto Panda Motive</h1>
     <p class="intro">
-      A personal garage for the cars I love — stories, photos, and the work that never really ends.
+      A personal garage for the cars I love: stories, photos, and work that never really ends.
       Scan a QR code at a show to learn more about a specific car.
     </p>
     <h2>The Garage</h2>
@@ -751,7 +751,7 @@ const garageCars = (await getCollection("cars"))
 - [ ] **Step 4: Verify build**
 
 Run: `npm run build`  
-Expected: PASS — `/`, `/garage/`, `/memory-lane/` generated
+Expected: PASS: `/`, `/garage/`, `/memory-lane/` generated
 
 - [ ] **Step 5: Commit**
 
@@ -840,7 +840,7 @@ const { images, alt } = Astro.props;
     <div class="gallery" data-gallery>
       {images.map((src, index) => (
         <button type="button" class="gallery-item" data-index={index} aria-label={`Open image ${index + 1}`}>
-          <img src={resolveImage(src)} alt={`${alt} — photo ${index + 1}`} loading="lazy" />
+          <img src={resolveImage(src)} alt={`${alt} - photo ${index + 1}`} loading="lazy" />
         </button>
       ))}
     </div>
@@ -1123,7 +1123,7 @@ const { Content } = await render(car);
 - [ ] **Step 5: Verify build generates all five car pages**
 
 Run: `npm run build`  
-Expected: PASS — routes for all five slugs in `dist/cars/`
+Expected: PASS: routes for all five slugs in `dist/cars/`
 
 - [ ] **Step 6: Commit**
 
@@ -1153,7 +1153,7 @@ import Layout from "../components/Layout.astro";
   <div class="container page">
     <h1>About</h1>
     <p>
-      Auto Panda Motive is a personal site for the cars I work on as a hobby — not a business,
+      Auto Panda Motive is a personal site for the cars I work on as a hobby, not a business,
       not a blog, just a place to share stories and photos for anyone curious enough to scan a QR code at a show.
     </p>
     <p>
@@ -1197,7 +1197,7 @@ import Layout from "../components/Layout.astro";
 - [ ] **Step 3: Verify build**
 
 Run: `npm run build`  
-Expected: PASS — `dist/about/index.html` and `dist/404.html` exist
+Expected: PASS: `dist/about/index.html` and `dist/404.html` exist
 
 - [ ] **Step 4: Commit**
 
@@ -1341,7 +1341,7 @@ npm run build
 npm run test:e2e
 ```
 
-Expected: PASS — all smoke tests green
+Expected: PASS: all smoke tests green
 
 - [ ] **Step 6: Commit**
 

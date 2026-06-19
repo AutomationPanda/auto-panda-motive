@@ -1,0 +1,25 @@
+---
+description: Avoid em dashes in prose; use commas or shorter sentences instead
+alwaysApply: true
+---
+
+# No em dash in text
+
+Do not use the em dash character (`—`) in user-facing copy, content, docs, or comments.
+
+Use instead:
+
+- **Commas** for a light pause or appositive: "My first classic, a lifelong project, never really ends."
+- **Shorter sentences** when the idea needs a hard break: "Nothing was perfect. Everything was earned."
+- **A colon** for labels or explanations: "Expected: PASS (empty site builds to dist/)."
+- **Parentheses** for brief asides: "Memory Lane (formerly owned cars)."
+
+```markdown
+<!-- BAD -->
+A personal garage for the cars I love — stories, photos, and the work that never ends.
+
+<!-- GOOD -->
+A personal garage for the cars I love: stories, photos, and work that never really ends.
+```
+
+Hyphens (`-`) and en dashes in code ranges (e.g. `1970-1974`) are fine. This rule targets the em dash in prose.

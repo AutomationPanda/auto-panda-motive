@@ -1,11 +1,11 @@
-# Auto Panda Motive — Design Spec
+# Auto Panda Motive Design Spec
 
 **Date:** 2026-06-19  
 **Status:** Approved
 
 ## Overview
 
-Auto Panda Motive is a personal website for showcasing hobby cars — stories, photos, and context for visitors at car shows who scan QR codes. It is not a blog, not commercial, and not monetized. The owner works on cool cars for the love of the game and wants to share that pride in a polished, photography-first way.
+Auto Panda Motive is a personal website for showcasing hobby cars: stories, photos, and context for visitors at car shows who scan QR codes. It is not a blog, not commercial, and not monetized. The owner works on cool cars for the love of the game and wants to share that pride in a polished, photography-first way.
 
 **Tech stack:** Astro (static output), raw CSS with custom properties, GitHub Pages, custom domain.
 
@@ -15,7 +15,7 @@ Auto Panda Motive is a personal website for showcasing hobby cars — stories, p
 - Provide per-car URLs for QR codes at car shows (mobile-first car pages)
 - Keep content management simple: edit Markdown files in the repo and push to publish
 - Support flexible image hosting (in-repo or external CDN) per image
-- Embed videos from YouTube/Vimeo — never store video files in git
+- Embed videos from YouTube/Vimeo. Never store video files in git
 
 ## Non-Goals
 
@@ -32,16 +32,16 @@ Auto Panda Motive is a personal website for showcasing hobby cars — stories, p
 | Section | URL | Contents |
 |---------|-----|----------|
 | Home | `/` | Intro blurb + grid of Garage cars + link to Memory Lane |
-| The Garage | `/garage/` | Cars currently owned — finished, daily drivers, and forever projects alike |
+| The Garage | `/garage/` | Cars currently owned: finished, daily drivers, and forever projects alike |
 | Memory Lane | `/memory-lane/` | Cars owned in the past but no longer in the collection |
 | About | `/about/` | Owner, the hobby, why "Auto Panda Motive" |
-| Car pages | `/cars/<slug>/` | Per-car showcase — QR code destination |
+| Car pages | `/cars/<slug>/` | Per-car showcase and QR code destination |
 
 ### Navigation
 
 Home · The Garage · Memory Lane · About
 
-The only categorical split is **ownership**: cars in The Garage vs cars in Memory Lane. There is no separate "in restoration" tier — work on owned cars never really ends, and restoration progress belongs in stories, not labels.
+The only categorical split is **ownership**: cars in The Garage vs cars in Memory Lane. There is no separate "in restoration" tier. Work on owned cars never really ends, and restoration progress belongs in stories, not labels.
 
 ### Cars
 
@@ -67,16 +67,16 @@ Each car gets its own QR code linking directly to `/cars/<slug>/`. Example: `/ca
 
 ### The Garage / Memory Lane
 
-Grid of car cards filtered by ownership section. Same card component as the homepage. Memory Lane cards may show a subtle "Memory Lane" label — not a status hierarchy, just orientation for visitors.
+Grid of car cards filtered by ownership section. Same card component as the homepage. Memory Lane cards may show a subtle "Memory Lane" label (orientation for visitors, not a status hierarchy).
 
 ### Car page (QR destination, mobile-first)
 
 Top to bottom:
 
-1. **Hero photo** — full-width
-2. **At-a-glance card** — year, make, model, one-line hook (above the fold on mobile). Memory Lane cars show a subtle section label; no "current vs restoration" badges.
-3. **Photo gallery** — responsive grid with lightbox on click/tap
-4. **Story timeline** — chronological entries with date, title, body, and inline photos
+1. **Hero photo**: full-width
+2. **At-a-glance card**: year, make, model, one-line hook (above the fold on mobile). Memory Lane cars show a subtle section label; no "current vs restoration" badges.
+3. **Photo gallery**: responsive grid with lightbox on click/tap
+4. **Story timeline**: chronological entries with date, title, body, and inline photos
 
 Optional: embedded YouTube/Vimeo video within a story entry.
 
@@ -90,7 +90,7 @@ Custom page with link back to The Garage. Shown for unknown car slugs or missing
 
 ## Visual Design System
 
-**Direction:** Modern Gallery — black-and-white palette, photography-first, subtle panda accents.
+**Direction:** Modern Gallery: black-and-white palette, photography-first, subtle panda accents.
 
 ### Colors (CSS custom properties)
 
@@ -103,7 +103,7 @@ Custom page with link back to The Garage. Shown for unknown car slugs or missing
 | `--color-accent` | `#000000` | Headings, nav, borders |
 | `--color-border` | `#e0e0e0` | Dividers, card edges |
 
-Strict monochrome — photos provide all color.
+Strict monochrome. Photos provide all color.
 
 ### Typography
 
@@ -115,21 +115,21 @@ Strict monochrome — photos provide all color.
 
 - Favicon: minimalist panda mark (black on white)
 - Footer: small panda logo + "Auto Panda Motive" wordmark
-- No panda imagery in content areas — cars remain hero
+- No panda imagery in content areas. Cars remain hero
 
 ### Components
 
 | Component | Behavior |
 |-----------|----------|
 | Car card | Photo top, name + hook below; optional subtle "Memory Lane" label on formerly-owned cars |
-| At-a-glance card | Bordered card below hero — year, make, model, hook |
+| At-a-glance card | Bordered card below hero: year, make, model, hook |
 | Photo gallery | Responsive grid, lightbox on click/tap |
 | Story timeline | Vertical line, date + title + body + inline photos per entry |
 | Nav | Fixed top, black text on white, minimal |
 
 ### Styling approach
 
-Raw CSS with custom properties — no Tailwind or CSS framework. Shared tokens and base styles in `src/styles/global.css`; component-scoped `<style>` blocks in `.astro` files.
+Raw CSS with custom properties. No Tailwind or CSS framework. Shared tokens and base styles in `src/styles/global.css`; component-scoped `<style>` blocks in `.astro` files.
 
 ## Content Model
 
@@ -146,7 +146,7 @@ year: 1970
 make: Volkswagen
 model: Beetle
 section: garage          # garage | memory-lane
-hook: "My first classic — fully restored over three summers."
+hook: "My first classic, fully restored over three summers."
 heroImage: /images/cars/1970-vw-beetle/hero.jpg
 gallery:
   - /images/cars/1970-vw-beetle/engine.jpg
@@ -157,7 +157,7 @@ sortOrder: 1
 Optional longer overview paragraph about this car.
 ```
 
-`section` is the only categorical field — it controls which listing page includes the car. Restoration progress, build milestones, and "where the project stands" live in story timeline entries, not in frontmatter labels.
+`section` is the only categorical field. It controls which listing page includes the car. Restoration progress, build milestones, and "where the project stands" live in story timeline entries, not in frontmatter labels.
 
 ### `stories` collection
 
@@ -173,7 +173,7 @@ images:
   - https://media.example.com/beetle/paint-after.jpg
 videoUrl: https://www.youtube.com/watch?v=example
 ---
-Story body — what you did, why, how it turned out.
+Story body: what you did, why, how it turned out.
 ```
 
 ### Flexible image strategy
@@ -187,7 +187,7 @@ Frontmatter image fields accept **either** local paths or absolute CDN URLs. A s
 | Zero external dependencies preferred | Fast repo clones matter |
 
 **Always in-repo:** favicon, panda logo, small UI assets.  
-**Always external embed:** videos (YouTube/Vimeo) — never commit video files.
+**Always external embed:** videos (YouTube/Vimeo). Never commit video files.
 
 ### File layout
 
@@ -211,7 +211,7 @@ public/
 
 1. Add photos locally under `public/images/cars/<slug>/` and/or upload to CDN and copy URLs
 2. Create or edit `.md` files in `cars/` or `stories/`
-3. Commit and push — GitHub Actions builds and deploys
+3. Commit and push. GitHub Actions builds and deploys
 
 ## Technical Architecture
 
@@ -252,7 +252,7 @@ export default defineConfig({
 });
 ```
 
-`base: '/'` — site served at domain root, not a subpath.
+`base: '/'`: site served at domain root, not a subpath.
 
 ### GitHub Pages deployment
 
@@ -313,7 +313,7 @@ auto-panda-motive/
 
 ### Playwright smoke tests (required in CI)
 
-Minimal UI smoke suite — not exhaustive coverage. Run via `npm run test:e2e` after build, against a local preview server.
+Minimal UI smoke suite, not exhaustive coverage. Run via `npm run test:e2e` after build, against a local preview server.
 
 | Test | What it verifies |
 |------|------------------|

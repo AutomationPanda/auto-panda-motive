@@ -1,6 +1,6 @@
 # Auto Panda Motive
 
-A personal website for showcasing hobby cars — stories, photos, and context for visitors at car shows who scan QR codes. Built with [Astro](https://astro.build/) as a static site and deployed to GitHub Pages.
+A personal website for showcasing hobby cars: stories, photos, and context for visitors at car shows who scan QR codes. Built with [Astro](https://astro.build/) as a static site and deployed to GitHub Pages.
 
 **The Garage** lists cars currently owned. **Memory Lane** holds cars from the past. Each car has its own page with a photo gallery and story timeline.
 
