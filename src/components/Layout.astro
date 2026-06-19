@@ -1,0 +1,98 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Stories and pictures from the Auto Panda Motive garage." } = Astro.props;
+const siteName = "Auto Panda Motive";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title === siteName ? title : `${title} · ${siteName}`}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container nav">
+        <a class="logo" href="/">{siteName}</a>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/garage/">The Garage</a>
+          <a href="/memory-lane/">Memory Lane</a>
+          <a href="/about/">About</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <img src="/favicon.svg" alt="" width="24" height="24" />
+        <span>{siteName}</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    height: var(--nav-height);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--nav-height);
+  }
+
+  .logo {
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+
+  .site-footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>
