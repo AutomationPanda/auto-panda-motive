@@ -67,3 +67,30 @@ test("car page at-a-glance visible on mobile", async ({ page }) => {
     expect(box.y + box.height).toBeLessThanOrEqual(844);
   }
 });
+
+test("theme toggle switches dark mode and persists", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("./");
+  await page.evaluate(() => localStorage.removeItem("theme"));
+  await page.reload();
+
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+
+  await page.getByRole("button", { name: /switch to dark mode/i }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+  await page.getByRole("button", { name: /switch to light mode/i }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+});
+
+test("follows system dark preference when no stored theme", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("./");
+  await page.evaluate(() => localStorage.removeItem("theme"));
+  await page.reload();
+
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+});
