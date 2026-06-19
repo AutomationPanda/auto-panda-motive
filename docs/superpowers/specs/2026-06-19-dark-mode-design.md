@@ -1,7 +1,7 @@
 # Dark Mode Design Spec
 
 **Date:** 2026-06-19  
-**Status:** Draft (pending review)
+**Status:** Approved
 
 ## Overview
 
