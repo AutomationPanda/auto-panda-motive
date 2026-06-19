@@ -9,9 +9,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test:e2e": "playwright test",
     "astro": "astro"
   },
   "dependencies": {
     "astro": "^6.4.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.0"
   }
 }
