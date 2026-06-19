@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://automationpanda.github.io",
-  base: "/auto-panda-motive/",
+  site: "https://autopandamotive.com",
   output: "static",
 });

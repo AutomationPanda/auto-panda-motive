@@ -4,7 +4,7 @@ This repository contains the code for the *Auto Panda Motive* website, where I s
 It shares photos and stories for all my cars, both present (in "The Garage") and past (down "Memory Lane").
 I built the site with [Astro](https://astro.build/) as a static site.
 
-The site is hosted on GitHub Pages at: https://automationpanda.github.io/auto-panda-motive/
+The site is hosted on GitHub Pages at: https://autopandamotive.com
 
 
 ## Quickstart
@@ -27,7 +27,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The app runs locally at: [http://localhost:4321/auto-panda-motive/](http://localhost:4321/auto-panda-motive/)
+The app runs locally at: [http://localhost:4321/](http://localhost:4321/)
 
 
 ## Development
@@ -63,7 +63,7 @@ auto-panda-motive/
 │   │   └── stories/        # Timeline entries linked to a car by slug
 │   ├── pages/              # Routes (home, garage, memory lane, about, car pages)
 │   ├── styles/             # Global CSS design tokens
-│   └── utils/              # Helpers (image URLs, base path for GitHub Pages)
+│   └── utils/              # Helpers (image URLs, site base path)
 ├── astro.config.mjs        # Astro site URL and base path
 ├── playwright.config.ts
 └── LICENSE                 # Dual license: open source code, reserved content
