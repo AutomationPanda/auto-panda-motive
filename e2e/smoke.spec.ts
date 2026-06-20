@@ -16,10 +16,10 @@ const CAR_NAMES: Record<string, string> = {
   "2007-chrysler-300": "2007 Chrysler 300",
 };
 
-test("home page shows intro and garage cards", async ({ page }) => {
+test("home page shows hero headline and garage cards", async ({ page }) => {
   await page.goto("./");
-  await expect(page.getByRole("heading", { name: "Auto Panda Motive" })).toBeVisible();
-  await expect(page.getByText("personal garage")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Every car has a story." })).toBeVisible();
+  await expect(page.getByText("These are the ones that are special to me.")).toBeVisible();
   await expect(page.getByRole("link", { name: /Volkswagen Beetle/i })).toBeVisible();
 });
 
