@@ -53,7 +53,10 @@ const faviconDark = withBase("/favicon-dark.svg");
   <body>
     <header class="site-header">
       <nav class="container nav">
-        <a class="logo" href={withBase("/")}>{siteName}</a>
+        <a class="logo" href={withBase("/")}>
+          <img class="logo__icon site-logo-icon" src={faviconLight} alt="" width="28" height="28" />
+          <span class="logo__text">{siteName}</span>
+        </a>
         <div class="nav-links">
           <a href={withBase("/")}>Home</a>
           <a href={withBase("/garage/")}>The Garage</a>
@@ -132,10 +135,25 @@ const faviconDark = withBase("/favicon-dark.svg");
   }
 
   .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-decoration: none;
     color: var(--color-accent);
+  }
+
+  .logo__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .logo__text {
+    line-height: 1;
   }
 
   .nav-links {
