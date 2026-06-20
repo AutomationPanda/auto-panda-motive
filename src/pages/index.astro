@@ -2,19 +2,25 @@
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import CarCard from "../components/CarCard.astro";
+import HomeHero from "../components/HomeHero.astro";
 import { withBase } from "../utils/url";
 
 const garageCars = (await getCollection("cars"))
   .filter((car) => car.data.section === "garage")
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const heroImage = "/images/hero/home.jpeg";
+const heroImageAlt = "1970 Volkswagen Beetle and Volkswagen Bus in the driveway";
 ---
 
 <Layout title="Auto Panda Motive">
+  <HomeHero
+    headlinePrimary="Every car has a story."
+    headlineSecondary="These are the ones that are special to me."
+    imageSrc={heroImage}
+    imageAlt={heroImageAlt}
+  />
   <div class="container page">
-    <h1>Auto Panda Motive</h1>
-    <p class="intro">
-      A personal garage for the cars I love: stories, photos, and work that never really ends.
-    </p>
     <h2>The Garage</h2>
     <div class="car-grid">
       {garageCars.map((car) => <CarCard car={car} />)}
@@ -24,10 +30,6 @@ const garageCars = (await getCollection("cars"))
 </Layout>
 
 <style>
-  .intro {
-    margin-bottom: 2rem;
-  }
-
   .memory-link {
     margin-top: 2.5rem;
   }
