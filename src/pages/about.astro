@@ -1,19 +1,53 @@
 ---
 import Layout from "../components/Layout.astro";
+import { withBase } from "../utils/url";
 ---
 
-<Layout title="About" description="About Auto Panda Motive and the car hobby.">
+<Layout title="About" description="About Auto Panda Motive, Pandy's personal garage for car stories and photos.">
   <div class="container page">
     <h1>About</h1>
+
+    <h2>Welcome to my garage!</h2>
     <p>
-      Auto Panda Motive is a personal site for the cars I work on as a hobby - not a business,
-      not a blog, just a place to share stories and photos for anyone curious enough to scan a QR
-      code at a show.
+      <em>Auto Panda Motive</em> is my personal garage online: it shares the cars I work on, the stories behind them,
+      and the photos along the way.
+      Browse <a href={withBase("/garage/")}>The Garage</a> for what I have now, or
+      <a href={withBase("/memory-lane/")}>Memory Lane</a> for cars from the past. Each car has its
+      own page with photos and a timeline of work and adventures.
+      This is not a shop, a business, or a blog. It is a hobby I enjoy sharing with friends, fellow
+      enthusiasts, and anyone who wants to know more.
     </p>
+
+    <h2>Why "Auto-Panda-Motive"</h2>
     <p>
-      The panda? It's a nickname, a spirit of playful persistence, and a reminder that the work is
-      supposed to be fun.
+      The name is a play on <em><a
+        href="https://automationpanda.com"
+        target="_blank"
+        rel="noopener noreferrer">"Automation Panda"</a></em>, my professional moniker for my work in test
+      automation and software quality.
+      Same panda; different motor.
+      Cars and code both reward patience, careful work, and the stubborn satisfaction of fixing something until it runs right.
+    </p>
+
+    <h2>Thanks for visiting</h2>
+    <p>
+      I'm Pandy, a software engineer by trade and a car enthusiast by choice.
+      I built this site to share my cool cars and all the stories that go with them.
+      Check out the <a href="https://github.com/AutomationPanda/auto-panda-motive"
+        target="_blank"
+        rel="noopener noreferrer">GitHub repository</a> if you want to see how I built the site.
+      Thanks for stopping by!
     </p>
   </div>
 </Layout>
 
+<style>
+  h2 {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+  }
+
+  h2:first-of-type {
+    margin-top: 1.5rem;
+  }
+</style>
