@@ -4,7 +4,7 @@ year: 1974
 make: Volkswagen
 model: "Karmann Ghia Convertible"
 section: memory-lane
-hook: "A convertible chapter since closed, still fondly remembered."
+hook: "What a fun car to drive! It's basically a Type 1 with an Italian body. This one was a survivor."
 heroImage: /images/cars/1974-karmann-ghia/placeholder.svg
 gallery: []
 qrSlug: 1974-karmann-ghia

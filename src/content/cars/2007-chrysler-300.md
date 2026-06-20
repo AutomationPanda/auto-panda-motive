@@ -4,7 +4,7 @@ year: 2007
 make: Chrysler
 model: "300"
 section: memory-lane
-hook: "A past chapter in the collection."
+hook: "This was the first car I ever owned. It was true love. And it was such a nice vehicle."
 heroImage: /images/cars/2007-chrysler-300/placeholder.svg
 gallery: []
 qrSlug: 2007-chrysler-300

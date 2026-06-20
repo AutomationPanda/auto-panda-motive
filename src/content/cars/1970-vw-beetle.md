@@ -4,7 +4,7 @@ year: 1970
 make: Volkswagen
 model: Beetle
 section: garage
-hook: "My first classic, a lifelong project that never really ends."
+hook: "The Beetle has been my favorite kind of car. This one was the first classic car I ever owned."
 heroImage: /images/cars/1970-vw-beetle/placeholder.svg
 gallery: []
 qrSlug: 1970-vw-beetle
