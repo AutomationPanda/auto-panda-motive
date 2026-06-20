@@ -1,0 +1,95 @@
+---
+import { resolveImage } from "../utils/image";
+
+interface Props {
+  headlinePrimary: string;
+  headlineSecondary: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const { headlinePrimary, headlineSecondary, imageSrc, imageAlt } = Astro.props;
+const resolvedImage = resolveImage(imageSrc);
+---
+
+<section class="home-hero" style={`--home-hero-image: url("${resolvedImage}")`}>
+  <img class="home-hero__sr-image" src={resolvedImage} alt={imageAlt} />
+  <div class="home-hero__overlay" aria-hidden="true"></div>
+  <div class="container home-hero__content">
+    <h1 class="home-hero__primary">{headlinePrimary}</h1>
+    <div class="home-hero__accent" aria-hidden="true"></div>
+    <p class="home-hero__secondary">{headlineSecondary}</p>
+  </div>
+</section>
+
+<style>
+  .home-hero {
+    --color-hero-accent: #e85d04;
+    --color-hero-secondary: rgba(255, 255, 255, 0.9);
+    position: relative;
+    min-height: clamp(22rem, 68vh, 36rem);
+    display: flex;
+    align-items: flex-end;
+    background-image: var(--home-hero-image);
+    background-size: cover;
+    background-position: center;
+    background-color: #1a1a1a;
+  }
+
+  .home-hero__sr-image {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .home-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+    pointer-events: none;
+  }
+
+  .home-hero__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .home-hero__primary {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw + 1rem, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-inverse-text);
+  }
+
+  .home-hero__accent {
+    width: 2.5rem;
+    height: 3px;
+    margin: 0.75rem 0;
+    background: var(--color-hero-accent);
+  }
+
+  .home-hero__secondary {
+    margin: 0;
+    max-width: 36rem;
+    font-weight: 600;
+    font-size: clamp(1rem, 2vw + 0.5rem, 1.5rem);
+    line-height: 1.3;
+    color: var(--color-hero-secondary);
+  }
+</style>
