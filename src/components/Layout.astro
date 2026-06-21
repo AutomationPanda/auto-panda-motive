@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Footer from "./Footer.astro";
 import { withBase } from "../utils/url";
 
 interface Props {
@@ -77,12 +78,7 @@ const faviconDark = withBase("/favicon-dark.svg");
     <main>
       <slot />
     </main>
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <img class="site-logo-icon" src={faviconLight} alt="" width="24" height="24" />
-        <span>{siteName}</span>
-      </div>
-    </footer>
+    <Footer />
     <script is:inline>
       (function () {
         var toggle = document.getElementById("theme-toggle");
@@ -193,19 +189,5 @@ const faviconDark = withBase("/favicon-dark.svg");
 
   .nav-links a:hover {
     background: var(--color-bg-alt);
-  }
-
-  .site-footer {
-    margin-top: 4rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--color-border);
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
   }
 </style>

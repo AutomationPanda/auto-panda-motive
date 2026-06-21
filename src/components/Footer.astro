@@ -1,0 +1,153 @@
+---
+import { withBase } from "../utils/url";
+
+const siteName = "Auto Panda Motive";
+const faviconLight = withBase("/favicon.svg");
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a class="footer-brand" href={withBase("/")}>
+      <img
+        class="footer-brand__icon site-logo-icon"
+        src={faviconLight}
+        alt=""
+        width="24"
+        height="24"
+      />
+      <span>{siteName}</span>
+    </a>
+    <nav class="footer-links" aria-label="Site attribution">
+      <a
+        class="footer-link"
+        href="https://www.instagram.com/stickshiftpandy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="footer-link__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M8 0C5.83 0 5.556.01 4.703.048 3.85.088 3.27.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.27.088 3.85.048 4.703.01 5.556 0 5.83 0 8s.01 2.444.048 3.297c.04.853.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.556 15.99 5.83 16 8 16s2.444-.01 3.297-.048c.853-.04 1.433-.174 1.942-.372a3.9 3.9 0 0 0 1.417-.923 3.9 3.9 0 0 0 .923-1.417c.198-.51.333-1.09.372-1.942C15.99 10.444 16 10.17 16 8s-.01-2.444-.048-3.297c-.04-.853-.174-1.433-.372-1.942a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.09-.333-1.942-.372C10.444.01 10.17 0 8 0zm0 1.44c2.136 0 2.389.01 3.232.048.78.036 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.038.843.047 1.096.047 3.231s-.01 2.389-.047 3.232c-.036.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.705.24-1.485.276-.843.038-1.096.047-3.232.047s-2.389-.01-3.232-.047c-.78-.036-1.203-.166-1.485-.276a2.47 2.47 0 0 1-.92-.598 2.47 2.47 0 0 1-.598-.92c-.11-.282-.24-.705-.275-1.485-.038-.843-.047-1.096-.047-3.232s.01-2.389.047-3.232c.036-.78.166-1.204.275-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.843-.038 1.096-.047 3.232-.047zM8 3.892a4.108 4.108 0 1 0 0 8.216 4.108 4.108 0 0 0 0-8.216zm0 6.775a2.667 2.667 0 1 1 0-5.334 2.667 2.667 0 0 1 0 5.334zm4.27-7.144a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92z"
+          ></path>
+        </svg>
+        Instagram
+      </a>
+      <a
+        class="footer-link"
+        href="https://github.com/AutomationPanda/auto-panda-motive"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="footer-link__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+        GitHub
+      </a>
+      <a
+        class="footer-link"
+        href="https://automationpanda.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="footer-link__icon site-logo-icon"
+          src={faviconLight}
+          alt=""
+          width="16"
+          height="16"
+        />
+        Automation Panda
+      </a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--color-text-muted);
+  }
+
+  .footer-brand:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-brand:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .footer-brand__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    text-decoration: none;
+    color: var(--color-text-muted);
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .footer-link__icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  @media (min-width: 640px) {
+    .footer-inner {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .footer-links {
+      justify-content: flex-start;
+    }
+  }
+</style>
