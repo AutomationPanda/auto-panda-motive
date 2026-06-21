@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { car } = Astro.props;
-const { name, year, make, model, section, heroImage } = car.data;
+const { name, make, model, section, heroImage } = car.data;
 const resolvedImage = resolveImage(heroImage);
 const isPlaceholder = heroImage.includes("placeholder");
 const watermarkPrimary = make.split(/[\s-]/)[0].toUpperCase();
@@ -18,9 +18,6 @@ const watermarkSecondary = model.split(/\s/)[0].toUpperCase();
   <div class="container car-hero__title">
     {section === "memory-lane" && <span class="section-label">Memory Lane</span>}
     <h1 class="car-hero__name">{name}</h1>
-    <p class="car-hero__meta">
-      {year} · {make} · {model}
-    </p>
     <div class="car-hero__accent" aria-hidden="true"></div>
   </div>
   <div class="car-hero__stage">
@@ -59,16 +56,10 @@ const watermarkSecondary = model.split(/\s/)[0].toUpperCase();
     color: var(--color-text);
   }
 
-  .car-hero__meta {
-    margin: 0.5rem 0 0;
-    font-size: 0.95rem;
-    color: var(--color-text-muted);
-  }
-
   .car-hero__accent {
     width: 2.5rem;
     height: 3px;
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
     background: var(--color-hero-accent);
   }
 
@@ -79,12 +70,6 @@ const watermarkSecondary = model.split(/\s/)[0].toUpperCase();
     align-items: flex-end;
     min-height: clamp(12rem, 35vw, 22rem);
     padding-inline: 1rem;
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      transparent 70%,
-      var(--color-bg-alt) 100%
-    );
   }
 
   .car-hero__watermark {

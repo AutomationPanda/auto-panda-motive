@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Convert iPhone HEIC and other image files to optimized WebP for the site.
+# PNG and other images with alpha are resized via PNG so transparency is preserved.
 #
 # Requires:
 #   - macOS `sips` (built in) for HEIC/resize
@@ -70,9 +71,24 @@ ensure_output_dir() {
   fi
 }
 
+image_has_alpha() {
+  local file="$1"
+  local has_alpha
+
+  has_alpha="$(sips -g hasAlpha "$file" 2>/dev/null | awk '/hasAlpha:/ { print $2 }')"
+  [[ "$has_alpha" == "yes" ]]
+}
+
 resize_to_temp() {
   local src="$1"
   local temp_file="$2"
+  local format="$3"
+
+  if [[ "$format" == "png" ]]; then
+    sips -Z "$MAX_DIMENSION" -s format png "$src" --out "$temp_file" >/dev/null
+    return
+  fi
+
   sips -Z "$MAX_DIMENSION" -s format jpeg -s formatOptions 95 "$src" --out "$temp_file" >/dev/null
 }
 
@@ -83,9 +99,16 @@ convert_to_webp() {
 
   ensure_output_dir "$(dirname "$dest")"
 
-  temp_file="$(mktemp "${TMPDIR:-/tmp}/images-to-webp.XXXXXX.jpg")"
-  resize_to_temp "$src" "$temp_file"
-  cwebp -quiet -q "$QUALITY" "$temp_file" -o "$dest"
+  if image_has_alpha "$src"; then
+    temp_file="$(mktemp "${TMPDIR:-/tmp}/images-to-webp.XXXXXX.png")"
+    resize_to_temp "$src" "$temp_file" "png"
+    cwebp -quiet -q "$QUALITY" -alpha_q "$QUALITY" "$temp_file" -o "$dest"
+  else
+    temp_file="$(mktemp "${TMPDIR:-/tmp}/images-to-webp.XXXXXX.jpg")"
+    resize_to_temp "$src" "$temp_file" "jpeg"
+    cwebp -quiet -q "$QUALITY" "$temp_file" -o "$dest"
+  fi
+
   rm -f "$temp_file"
 
   log "Wrote ${dest}"

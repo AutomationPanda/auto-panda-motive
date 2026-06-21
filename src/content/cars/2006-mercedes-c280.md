@@ -4,8 +4,8 @@ year: 2006
 make: Mercedes-Benz
 model: C280 4MATIC
 section: garage
-hook: "A sleek, refined ride that's been in my family since my college days. It still drives great today!"
-heroImage: /images/cars/2006-mercedes-c280/placeholder.svg
+hook: "A sleek, refined ride that still drives as good today as it did when it was new."
+heroImage: /images/cars/2006-mercedes-c280/2026-06-21-114853.webp
 gallery: []
 qrSlug: 2006-mercedes-c280
 sortOrder: 1
