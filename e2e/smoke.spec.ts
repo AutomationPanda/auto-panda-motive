@@ -45,6 +45,20 @@ for (const slug of CAR_SLUGS) {
   });
 }
 
+test("car page does not show hook text", async ({ page }) => {
+  await page.goto("cars/2006-mercedes-c280/");
+  await expect(
+    page.getByText("A sleek, refined ride that still drives as good today as it did when it was new.")
+  ).not.toBeVisible();
+});
+
+test("garage card still shows hook text", async ({ page }) => {
+  await page.goto("garage/");
+  await expect(
+    page.getByText("A sleek, refined ride that still drives as good today as it did when it was new.")
+  ).toBeVisible();
+});
+
 test("about page loads", async ({ page }) => {
   await page.goto("about/");
   await expect(page.getByRole("heading", { name: "About" })).toBeVisible();
@@ -56,12 +70,13 @@ test("404 page shows garage link", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Go to The Garage/i })).toBeVisible();
 });
 
-test("car page at-a-glance visible on mobile", async ({ page }) => {
+test("car page hero visible on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("cars/1970-vw-beetle/");
-  const atAGlance = page.locator(".at-a-glance");
-  await expect(atAGlance).toBeVisible();
-  const box = await atAGlance.boundingBox();
+  const hero = page.locator(".car-hero");
+  await expect(hero).toBeVisible();
+  await expect(page.getByRole("heading", { name: CAR_NAMES["1970-vw-beetle"] })).toBeVisible();
+  const box = await hero.boundingBox();
   expect(box).not.toBeNull();
   if (box) {
     expect(box.y + box.height).toBeLessThanOrEqual(844);
