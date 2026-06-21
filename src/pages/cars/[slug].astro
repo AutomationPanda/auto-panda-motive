@@ -5,6 +5,7 @@ import Layout from "../../components/Layout.astro";
 import CarHero from "../../components/CarHero.astro";
 import PhotoGallery from "../../components/PhotoGallery.astro";
 import StoryTimeline from "../../components/StoryTimeline.astro";
+import { resolveImage } from "../../utils/image";
 
 interface Props {
   car: CollectionEntry<"cars">;
@@ -25,9 +26,17 @@ const carStories = allStories
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const { Content } = await render(car);
+const heroImage = resolveImage(car.data.heroImage);
 ---
 
 <Layout title={car.data.name} description={car.data.hook}>
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={heroImage}
+    fetchpriority="high"
+  />
   <article class="car-page">
     <CarHero car={car} />
     <div class="container content">

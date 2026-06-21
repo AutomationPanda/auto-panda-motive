@@ -49,6 +49,18 @@ const faviconDark = withBase("/favicon-dark.svg");
         window.__applySiteTheme = applyTheme;
       })();
     </script>
+    <style is:inline>
+      html {
+        background-color: #ffffff;
+        color: #1a1a1a;
+      }
+
+      html[data-theme="dark"] {
+        background-color: #0a0a0a;
+        color: #f5f5f5;
+      }
+    </style>
+    <slot name="head" />
     <title>{title === siteName ? title : `${title} · ${siteName}`}</title>
   </head>
   <body>

@@ -1,21 +1,29 @@
 ---
+import { getHeroAspectRatio, getHeroDimensions } from "../data/hero-dimensions";
 import { resolveImage } from "../utils/image";
 import HeroTitle from "./HeroTitle.astro";
+import HeroRevealImage from "./HeroRevealImage.astro";
 
 const heroImage = "/images/hero/about.webp";
 const resolvedImage = resolveImage(heroImage);
+const heroDimensions = getHeroDimensions(heroImage);
+const heroAspectRatio = getHeroAspectRatio(heroImage);
 ---
 
 <section class="about-hero">
   <div class="about-hero__canvas">
     <div class="about-hero__composition">
       <HeroTitle title="About" />
-      <div class="about-hero__image-wrap">
-        <img
-          class="about-hero__image"
+      <div
+        class="about-hero__image-wrap"
+        style={heroAspectRatio ? `aspect-ratio: ${heroAspectRatio}` : undefined}
+      >
+        <HeroRevealImage
           src={resolvedImage}
           alt="Pandy with a classic car"
-          loading="eager"
+          width={heroDimensions?.width}
+          height={heroDimensions?.height}
+          class="about-hero__image"
         />
       </div>
     </div>
@@ -47,15 +55,15 @@ const resolvedImage = resolveImage(heroImage);
     margin-top: clamp(-1.75rem, -4vw, -0.5rem);
     line-height: 0;
     text-align: center;
-    transform: translateY(-6%);
+    transform: translateY(-1.5rem);
   }
 
-  .about-hero__image {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    display: inline-block;
-    vertical-align: bottom;
+  .about-hero :global(.about-hero__image) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
     filter: drop-shadow(0 1rem 2rem rgba(0, 0, 0, 0.18));
   }
 </style>

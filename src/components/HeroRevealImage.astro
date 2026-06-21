@@ -1,0 +1,88 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const { src, alt, width, height, class: extraClass } = Astro.props;
+const imageId = `hero-reveal-${src.replace(/[^a-z0-9]+/gi, "-")}`;
+---
+
+<img
+  id={imageId}
+  class:list={["hero-reveal__image", extraClass]}
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  loading="eager"
+  decoding="async"
+  fetchpriority="high"
+/>
+
+<script is:inline define:vars={{ imageId }}>
+  (function () {
+    async function whenImageReady(img) {
+      if (typeof img.decode === "function") {
+        try {
+          await img.decode();
+          return;
+        } catch (error) {
+          // Fall through to load/error handlers.
+        }
+      }
+
+      if (img.complete && img.naturalWidth > 0) {
+        return;
+      }
+
+      await new Promise(function (resolve) {
+        img.addEventListener("load", resolve, { once: true });
+        img.addEventListener("error", resolve, { once: true });
+      });
+    }
+
+    function revealHeroImage(img) {
+      if (img.classList.contains("is-revealed")) {
+        return;
+      }
+
+      img.classList.add("is-revealed");
+    }
+
+    var img = document.getElementById(imageId);
+    if (!img) {
+      return;
+    }
+
+    void whenImageReady(img).then(function () {
+      revealHeroImage(img);
+    });
+  })();
+</script>
+
+<style>
+  .hero-reveal__image {
+    opacity: 0;
+    transform: translateY(16px);
+    will-change: opacity, transform;
+    transition:
+      opacity 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .hero-reveal__image.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal__image {
+      transition: none;
+    }
+  }
+</style>
