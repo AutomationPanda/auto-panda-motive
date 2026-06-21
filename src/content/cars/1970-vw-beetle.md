@@ -5,7 +5,7 @@ make: Volkswagen
 model: Beetle
 section: garage
 hook: "The Beetle has always been my favorite kind of car. This one was the first classic car I owned."
-heroImage: /images/cars/1970-vw-beetle/placeholder.svg
+heroImage: /images/cars/1970-vw-beetle/1970-vw-beetle-hero.webp
 gallery: []
 qrSlug: 1970-vw-beetle
 sortOrder: 2
