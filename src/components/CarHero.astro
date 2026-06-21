@@ -1,0 +1,129 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { resolveImage } from "../utils/image";
+
+interface Props {
+  car: CollectionEntry<"cars">;
+}
+
+const { car } = Astro.props;
+const { name, year, make, model, section, heroImage } = car.data;
+const resolvedImage = resolveImage(heroImage);
+const isPlaceholder = heroImage.includes("placeholder");
+const watermarkPrimary = make.split(/[\s-]/)[0].toUpperCase();
+const watermarkSecondary = model.split(/\s/)[0].toUpperCase();
+---
+
+<section class="car-hero" data-mode={isPlaceholder ? "fallback" : "cutout"}>
+  <div class="container car-hero__title">
+    {section === "memory-lane" && <span class="section-label">Memory Lane</span>}
+    <h1 class="car-hero__name">{name}</h1>
+    <p class="car-hero__meta">
+      {year} · {make} · {model}
+    </p>
+    <div class="car-hero__accent" aria-hidden="true"></div>
+  </div>
+  <div class="car-hero__stage">
+    {!isPlaceholder && (
+      <div class="car-hero__watermark" aria-hidden="true">
+        <span>{watermarkPrimary}</span>
+        <span>{watermarkSecondary}</span>
+      </div>
+    )}
+    <img
+      class="car-hero__image"
+      src={resolvedImage}
+      alt={name}
+      loading="eager"
+    />
+  </div>
+</section>
+
+<style>
+  .car-hero {
+    --color-hero-accent: #e85d04;
+    padding-bottom: 1.5rem;
+  }
+
+  .car-hero__title {
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .car-hero__name {
+    margin: 0.25rem 0 0;
+    font-weight: 800;
+    font-size: clamp(1.75rem, 4vw + 0.5rem, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .car-hero__meta {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+  }
+
+  .car-hero__accent {
+    width: 2.5rem;
+    height: 3px;
+    margin-top: 0.75rem;
+    background: var(--color-hero-accent);
+  }
+
+  .car-hero__stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: clamp(12rem, 35vw, 22rem);
+    padding-inline: 1rem;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 70%,
+      var(--color-bg-alt) 100%
+    );
+  }
+
+  .car-hero__watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: clamp(3rem, 14vw, 7rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: color-mix(in srgb, var(--color-text) 5%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .car-hero__image {
+    position: relative;
+    z-index: 1;
+    width: min(90%, 700px);
+    height: auto;
+  }
+
+  .car-hero[data-mode="cutout"] .car-hero__image {
+    filter: drop-shadow(0 1rem 2rem rgba(0, 0, 0, 0.18));
+  }
+
+  .car-hero[data-mode="fallback"] .car-hero__stage {
+    min-height: auto;
+    padding-top: 0.5rem;
+    background: none;
+  }
+
+  .car-hero[data-mode="fallback"] .car-hero__image {
+    width: min(100%, 700px);
+    aspect-ratio: 16 / 10;
+    object-fit: contain;
+    background: var(--color-bg-alt);
+  }
+</style>
