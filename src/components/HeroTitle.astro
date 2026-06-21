@@ -1,0 +1,45 @@
+---
+interface Props {
+  title?: string;
+  lines?: string[];
+}
+
+const { title, lines } = Astro.props;
+---
+
+<h1 class="hero-title">
+  {
+    lines
+      ? lines.map((line) => <span class="hero-title__line">{line}</span>)
+      : title
+  }
+</h1>
+
+<style>
+  .hero-title {
+    position: relative;
+    z-index: 2;
+    align-self: stretch;
+    width: 100%;
+    margin: 0;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+    text-align: center;
+    font-weight: 900;
+    font-size: clamp(2.75rem, 10vw + 0.75rem, 6.25rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: var(--color-text);
+  }
+
+  .hero-title__line {
+    display: block;
+  }
+</style>
+
+<style is:global>
+  h1.hero-title {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--color-text);
+  }
+</style>

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import CarCard from "../components/CarCard.astro";
+import HeroTitle from "../components/HeroTitle.astro";
 
 const cars = (await getCollection("cars"))
   .filter((car) => car.data.section === "garage")
@@ -9,8 +10,10 @@ const cars = (await getCollection("cars"))
 ---
 
 <Layout title="The Garage" description="Cars currently in the Auto Panda Motive collection.">
+  <section class="listing-hero">
+    <HeroTitle title="The Garage" />
+  </section>
   <div class="container page">
-    <h1>The Garage</h1>
     <p class="intro">The cars I currently own.</p>
     <div class="car-grid">
       {cars.map((car) => <CarCard car={car} />)}

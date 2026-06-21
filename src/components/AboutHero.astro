@@ -1,5 +1,6 @@
 ---
 import { resolveImage } from "../utils/image";
+import HeroTitle from "./HeroTitle.astro";
 
 const heroImage = "/images/hero/about.webp";
 const resolvedImage = resolveImage(heroImage);
@@ -8,7 +9,7 @@ const resolvedImage = resolveImage(heroImage);
 <section class="about-hero">
   <div class="about-hero__canvas">
     <div class="about-hero__composition">
-      <h1 class="about-hero__statement">About</h1>
+      <HeroTitle title="About" />
       <div class="about-hero__image-wrap">
         <img
           class="about-hero__image"
@@ -37,21 +38,6 @@ const resolvedImage = resolveImage(heroImage);
     width: 100%;
   }
 
-  .about-hero__statement {
-    position: relative;
-    z-index: 2;
-    align-self: stretch;
-    width: 100%;
-    margin: 0;
-    padding-inline: clamp(1rem, 4vw, 2rem);
-    text-align: center;
-    font-weight: 900;
-    font-size: clamp(2.75rem, 10vw + 0.75rem, 6.25rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    color: var(--color-text);
-  }
-
   .about-hero__image-wrap {
     position: relative;
     z-index: 1;
@@ -71,13 +57,5 @@ const resolvedImage = resolveImage(heroImage);
     display: inline-block;
     vertical-align: bottom;
     filter: drop-shadow(0 1rem 2rem rgba(0, 0, 0, 0.18));
-  }
-</style>
-
-<style is:global>
-  h1.about-hero__statement {
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    color: var(--color-text);
   }
 </style>

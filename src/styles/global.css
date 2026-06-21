@@ -70,6 +70,10 @@ img {
   padding: 2rem 0;
 }
 
+.listing-hero {
+  padding: 1rem 0 0.5rem;
+}
+
 .intro {
   color: var(--color-text-muted);
   max-width: 40rem;

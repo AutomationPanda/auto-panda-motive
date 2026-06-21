@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { resolveImage } from "../utils/image";
+import HeroTitle from "./HeroTitle.astro";
 
 interface Props {
   car: CollectionEntry<"cars">;
@@ -20,10 +21,7 @@ const isPlaceholder = heroImage.includes("placeholder");
       </div>
     )}
     <div class="car-hero__composition">
-      <h1 class="car-hero__statement">
-        <span class="car-hero__line">{year} {make}</span>
-        <span class="car-hero__line">{model}</span>
-      </h1>
+      <HeroTitle lines={[ `${year} ${make}`, model ]} />
       <div class="car-hero__image-wrap">
         <img
           class="car-hero__image"
@@ -54,25 +52,6 @@ const isPlaceholder = heroImage.includes("placeholder");
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
-
-  .car-hero__statement {
-    position: relative;
-    z-index: 2;
-    align-self: stretch;
-    width: 100%;
-    margin: 0;
-    padding-inline: clamp(1rem, 4vw, 2rem);
-    text-align: center;
-    font-weight: 900;
-    font-size: clamp(2.75rem, 10vw + 0.75rem, 6.25rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    color: var(--color-text);
-  }
-
-  .car-hero__line {
-    display: block;
   }
 
   .car-hero__image-wrap {
@@ -113,13 +92,5 @@ const isPlaceholder = heroImage.includes("placeholder");
     aspect-ratio: 16 / 10;
     object-fit: contain;
     background: var(--color-bg-alt);
-  }
-</style>
-
-<style is:global>
-  h1.car-hero__statement {
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    color: var(--color-text);
   }
 </style>
