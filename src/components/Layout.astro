@@ -53,16 +53,18 @@ const faviconDark = withBase("/favicon-dark.svg");
   </head>
   <body>
     <header class="site-header">
-      <nav class="container nav">
+      <nav class="container nav" aria-label="Main">
         <a class="logo" href={withBase("/")}>
           <img class="logo__icon site-logo-icon" src={faviconLight} alt="" width="28" height="28" />
           <span class="logo__text">{siteName}</span>
         </a>
-        <div class="nav-links">
+        <div class="nav-links" id="nav-menu">
           <a href={withBase("/")}>Home</a>
           <a href={withBase("/garage/")}>The Garage</a>
           <a href={withBase("/memory-lane/")}>Memory Lane</a>
           <a href={withBase("/about/")}>About</a>
+        </div>
+        <div class="nav-actions">
           <button
             type="button"
             class="theme-toggle"
@@ -71,6 +73,18 @@ const faviconDark = withBase("/favicon-dark.svg");
             aria-pressed="false"
           >
             ☾
+          </button>
+          <button
+            type="button"
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-controls="nav-menu"
+            aria-expanded="false"
+            aria-label="Open menu"
+          >
+            <span class="nav-toggle__bar" aria-hidden="true"></span>
+            <span class="nav-toggle__bar" aria-hidden="true"></span>
+            <span class="nav-toggle__bar" aria-hidden="true"></span>
           </button>
         </div>
       </nav>
@@ -108,6 +122,34 @@ const faviconDark = withBase("/favicon-dark.svg");
           localStorage.setItem("theme", next);
           syncToggle();
         });
+
+        var navToggle = document.getElementById("nav-toggle");
+        var navMenu = document.getElementById("nav-menu");
+
+        function setNavOpen(open) {
+          if (!navToggle || !navMenu) return;
+          navToggle.setAttribute("aria-expanded", String(open));
+          navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          navMenu.classList.toggle("is-open", open);
+        }
+
+        if (navToggle && navMenu) {
+          navToggle.addEventListener("click", function () {
+            setNavOpen(navToggle.getAttribute("aria-expanded") !== "true");
+          });
+
+          navMenu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              setNavOpen(false);
+            });
+          });
+
+          document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+              setNavOpen(false);
+            }
+          });
+        }
       })();
     </script>
   </body>
@@ -120,21 +162,23 @@ const faviconDark = withBase("/favicon-dark.svg");
     z-index: 100;
     background: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    height: var(--nav-height);
   }
 
   .nav {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: var(--nav-height);
+    gap: 0.75rem;
+    min-height: var(--nav-height);
   }
 
   .logo {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.0625rem;
+    min-width: 0;
+    font-size: clamp(0.875rem, 2.8vw, 1.0625rem);
     font-weight: 600;
     letter-spacing: 0.06em;
     text-decoration: none;
@@ -149,13 +193,64 @@ const faviconDark = withBase("/favicon-dark.svg");
   }
 
   .logo__text {
-    line-height: 1;
+    line-height: 1.1;
+  }
+
+  .nav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
   }
 
   .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0.75rem 1rem 1rem;
+    transform: translateX(-50%);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-links.is-open {
     display: flex;
-    align-items: center;
-    gap: 1.25rem;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-alt);
+    cursor: pointer;
+  }
+
+  .nav-toggle:hover {
+    border-color: var(--color-accent);
+  }
+
+  .nav-toggle__bar {
+    display: block;
+    width: 1rem;
+    height: 2px;
+    margin-inline: auto;
+    background: var(--color-accent);
+    border-radius: 1px;
   }
 
   .theme-toggle {
@@ -181,13 +276,39 @@ const faviconDark = withBase("/favicon-dark.svg");
 
   .nav-links a {
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     letter-spacing: 0.04em;
-    padding: 0.25rem 0.5rem;
+    padding: 0.625rem 0.75rem;
     border-radius: 4px;
   }
 
   .nav-links a:hover {
     background: var(--color-bg-alt);
+  }
+
+  @media (min-width: 768px) {
+    .nav-toggle {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: static;
+      width: auto;
+      margin-left: auto;
+      padding: 0;
+      transform: none;
+      background: transparent;
+      border-bottom: none;
+      box-shadow: none;
+      gap: 1.25rem;
+    }
+
+    .nav-links a {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.9rem;
+    }
   }
 </style>

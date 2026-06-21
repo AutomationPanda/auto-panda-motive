@@ -30,10 +30,12 @@
 
 html {
   scrollbar-gutter: stable;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  overflow-x: clip;
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.6;
