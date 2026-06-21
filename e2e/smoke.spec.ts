@@ -16,6 +16,75 @@ const CAR_NAMES: Record<string, string> = {
   "2007-chrysler-300": "2007 Chrysler 300",
 };
 
+const MOBILE_VIEWPORT = { width: 390, height: 844 };
+const DESKTOP_VIEWPORT = { width: 1280, height: 800 };
+
+function mainNav(page: import("@playwright/test").Page) {
+  return page.getByRole("navigation", { name: "Main" });
+}
+
+test.describe("responsive navigation", () => {
+  test("mobile hides nav links until menu is opened", async ({ page }) => {
+    await page.setViewportSize(MOBILE_VIEWPORT);
+    await page.goto("./");
+
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+    await expect(page.locator("#nav-menu")).not.toHaveClass(/is-open/);
+    await expect(mainNav(page).getByRole("link", { name: "Home" })).toBeHidden();
+    await expect(mainNav(page).getByRole("link", { name: "The Garage" })).toBeHidden();
+  });
+
+  test("desktop shows nav links and hides menu button", async ({ page }) => {
+    await page.setViewportSize(DESKTOP_VIEWPORT);
+    await page.goto("./");
+
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
+    await expect(mainNav(page).getByRole("link", { name: "Home" })).toBeVisible();
+    await expect(mainNav(page).getByRole("link", { name: "The Garage" })).toBeVisible();
+    await expect(mainNav(page).getByRole("link", { name: "Memory Lane" })).toBeVisible();
+    await expect(mainNav(page).getByRole("link", { name: "About" })).toBeVisible();
+  });
+
+  test("mobile menu opens, navigates, and closes after link click", async ({ page }) => {
+    await page.setViewportSize(MOBILE_VIEWPORT);
+    await page.goto("./");
+
+    await page.getByRole("button", { name: "Open menu" }).click();
+    await expect(page.getByRole("button", { name: "Close menu" })).toBeVisible();
+    await expect(page.locator("#nav-menu")).toHaveClass(/is-open/);
+
+    await mainNav(page).getByRole("link", { name: "About" }).click();
+    await expect(page).toHaveURL(/about/);
+    await expect(page.getByRole("heading", { name: "About" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+    await expect(page.locator("#nav-menu")).not.toHaveClass(/is-open/);
+  });
+
+  test("mobile menu closes with Escape", async ({ page }) => {
+    await page.setViewportSize(MOBILE_VIEWPORT);
+    await page.goto("./");
+
+    await page.getByRole("button", { name: "Open menu" }).click();
+    await expect(page.getByRole("button", { name: "Close menu" })).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+    await expect(page.locator("#nav-menu")).not.toHaveClass(/is-open/);
+  });
+
+  test("mobile layout does not overflow horizontally", async ({ page }) => {
+    await page.setViewportSize(MOBILE_VIEWPORT);
+    await page.goto("./");
+
+    const metrics = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }));
+
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
+  });
+});
+
 test("home page shows hero headline and garage cards", async ({ page }) => {
   await page.goto("./");
   await expect(page.getByRole("heading", { name: "Every car has a story." })).toBeVisible();
