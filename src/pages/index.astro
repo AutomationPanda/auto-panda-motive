@@ -3,10 +3,13 @@ import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import CarCard from "../components/CarCard.astro";
 import HomeHero from "../components/HomeHero.astro";
-import { withBase } from "../utils/url";
 
 const garageCars = (await getCollection("cars"))
   .filter((car) => car.data.section === "garage")
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const memoryLaneCars = (await getCollection("cars"))
+  .filter((car) => car.data.section === "memory-lane")
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
 const heroImage = "/images/hero/home.jpeg";
@@ -21,16 +24,25 @@ const heroImageAlt = "1970 Volkswagen Beetle and Volkswagen Bus in the driveway"
     imageAlt={heroImageAlt}
   />
   <div class="container page">
-    <h2>The Garage</h2>
-    <div class="car-grid">
-      {garageCars.map((car) => <CarCard car={car} />)}
-    </div>
-    <p class="memory-link"><a href={withBase("/memory-lane/")}>Visit Memory Lane →</a></p>
+    <section class="car-section">
+      <h2>The Garage</h2>
+      <p class="intro">The cars I currently own.</p>
+      <div class="car-grid">
+        {garageCars.map((car) => <CarCard car={car} />)}
+      </div>
+    </section>
+    <section class="car-section">
+      <h2>Memory Lane</h2>
+      <p class="intro">The cars I once loved but no longer own.</p>
+      <div class="car-grid">
+        {memoryLaneCars.map((car) => <CarCard car={car} />)}
+      </div>
+    </section>
   </div>
 </Layout>
 
 <style>
-  .memory-link {
-    margin-top: 2.5rem;
+  .car-section + .car-section {
+    margin-top: 3.5rem;
   }
 </style>

@@ -8,5 +8,5 @@ hook: "This was the first car I ever owned. It was true love. And it was such a 
 heroImage: /images/cars/2007-chrysler-300/2007-chrysler-300-hero.webp
 gallery: []
 qrSlug: 2007-chrysler-300
-sortOrder: 
+sortOrder: 5
 ---
