@@ -1,12 +1,13 @@
 ---
 import Layout from "../components/Layout.astro";
+import AboutHero from "../components/AboutHero.astro";
 import { withBase } from "../utils/url";
 ---
 
 <Layout title="About" description="About Auto Panda Motive, Pandy's personal garage for car stories and photos.">
-  <div class="container page">
-    <h1>About</h1>
-
+  <article class="about-page">
+    <AboutHero />
+    <div class="container page">
     <h2>Welcome to my garage!</h2>
     <p>
       <em>Auto Panda Motive</em> is my personal garage online: it shares the cars I work on, the stories behind them,
@@ -38,10 +39,15 @@ import { withBase } from "../utils/url";
         rel="noopener noreferrer">GitHub repository</a> if you want to see how I built the site.
       Thanks for stopping by!
     </p>
-  </div>
+    </div>
+  </article>
 </Layout>
 
 <style>
+  .page {
+    padding: 1.25rem 0 3rem;
+  }
+
   h2 {
     margin-top: 2rem;
     font-size: 1.25rem;
