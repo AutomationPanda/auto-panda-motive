@@ -21,7 +21,6 @@ const stories = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/stories" }),
   schema: z.object({
     title: z.string(),
-    car: z.string(),
     date: z.coerce.date(),
     images: z.array(z.string()).default([]),
     videoUrl: z.string().url().optional(),

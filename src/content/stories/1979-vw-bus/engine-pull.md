@@ -1,6 +1,5 @@
 ---
 title: "Engine pull day"
-car: 1979-vw-bus
 date: 2024-03-20
 images: []
 ---

@@ -60,7 +60,7 @@ auto-panda-motive/
 │   ├── components/         # Astro UI components (Layout, CarCard, gallery, timeline)
 │   ├── content/
 │   │   ├── cars/           # One Markdown file per car
-│   │   └── stories/        # Timeline entries linked to a car by slug
+│   │   └── stories/        # Timeline entries in subfolders per car qrSlug
 │   ├── pages/              # Routes (home, garage, memory lane, about, car pages)
 │   ├── styles/             # Global CSS design tokens
 │   └── utils/              # Helpers (image URLs, site base path)
@@ -109,14 +109,13 @@ sortOrder: 1
 Optional longer overview about this car.
 ```
 
-### Stories (`src/content/stories/`)
+### Stories (`src/content/stories/<qrSlug>/`)
 
-One `.md` file per timeline entry. Linked to a car via `car` (must match that car's `qrSlug`).
+One `.md` file per timeline entry, grouped in a subfolder named after the car's `qrSlug`.
 
 ```yaml
 ---
 title: "Paint job complete"
-car: 1970-vw-beetle
 date: 2024-06-15
 images:
   - /images/cars/1970-vw-beetle/paint-after.jpg
