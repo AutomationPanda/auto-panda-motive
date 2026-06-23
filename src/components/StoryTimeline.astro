@@ -37,11 +37,12 @@ const renderedStories = await Promise.all(
       <ol class="timeline">
         {renderedStories.map(({ story, Content, embedUrl }) => (
           <li class="timeline-entry">
-            <time datetime={story.data.date.toISOString()}>
+            <time datetime={story.data.date.toISOString().slice(0, 10)}>
               {story.data.date.toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
+                timeZone: "UTC",
               })}
             </time>
             <h3>{story.data.title}</h3>
