@@ -37,30 +37,32 @@ const renderedStories = await Promise.all(
       <ol class="timeline">
         {renderedStories.map(({ story, Content, embedUrl }) => (
           <li class="timeline-entry">
-            <time datetime={story.data.date.toISOString().slice(0, 10)}>
-              {story.data.date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                timeZone: "UTC",
-              })}
-            </time>
-            <h3>{story.data.title}</h3>
-            <div class="content">
-              <Content />
+            <div class="timeline-entry__body">
+              <time datetime={story.data.date.toISOString().slice(0, 10)}>
+                {story.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  timeZone: "UTC",
+                })}
+              </time>
+              <h3>{story.data.title}</h3>
+              <div class="content">
+                <Content />
+              </div>
+              {story.data.images.length > 0 && (
+                <div class="entry-images">
+                  {story.data.images.map((src, index) => (
+                    <img src={resolveImage(src)} alt={`${story.data.title} image ${index + 1}`} loading="lazy" />
+                  ))}
+                </div>
+              )}
+              {embedUrl && (
+                <div class="video-embed">
+                  <iframe src={embedUrl} title={story.data.title} allowfullscreen loading="lazy" />
+                </div>
+              )}
             </div>
-            {story.data.images.length > 0 && (
-              <div class="entry-images">
-                {story.data.images.map((src, index) => (
-                  <img src={resolveImage(src)} alt={`${story.data.title} image ${index + 1}`} loading="lazy" />
-                ))}
-              </div>
-            )}
-            {embedUrl && (
-              <div class="video-embed">
-                <iframe src={embedUrl} title={story.data.title} allowfullscreen loading="lazy" />
-              </div>
-            )}
           </li>
         ))}
       </ol>
@@ -90,6 +92,14 @@ const renderedStories = await Promise.all(
     position: relative;
   }
 
+  .timeline-entry__body {
+    transition: transform 0.2s ease;
+  }
+
+  .timeline-entry:hover .timeline-entry__body {
+    transform: translateY(-2px);
+  }
+
   .timeline-entry::before {
     content: "";
     position: absolute;
@@ -99,17 +109,44 @@ const renderedStories = await Promise.all(
     height: 10px;
     border-radius: 50%;
     background: var(--color-accent);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .timeline-entry:hover::before {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 3px var(--color-bg);
   }
 
   .timeline-entry time {
     font-size: 0.85rem;
     color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .timeline-entry:hover time {
+    color: var(--color-text);
   }
 
   .timeline-entry h3 {
     margin: 0.25rem 0 0.5rem;
     font-size: 1.05rem;
     font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .timeline-entry:hover h3 {
+    color: var(--color-accent);
+  }
+
+  .timeline-entry .content {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .timeline-entry:hover .content {
+    color: var(--color-text);
   }
 
   .entry-images {
@@ -117,6 +154,37 @@ const renderedStories = await Promise.all(
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 0.5rem;
     margin-top: 0.75rem;
+  }
+
+  .entry-images img {
+    transition:
+      transform 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  .timeline-entry:hover .entry-images img {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-entry__body,
+    .timeline-entry::before,
+    .entry-images img {
+      transition: none;
+    }
+
+    .timeline-entry:hover .timeline-entry__body {
+      transform: none;
+    }
+
+    .timeline-entry:hover::before {
+      transform: none;
+    }
+
+    .timeline-entry:hover .entry-images img {
+      transform: none;
+    }
   }
 
   .video-embed {
