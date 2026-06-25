@@ -26,17 +26,41 @@ const renderedStories = await Promise.all(
     return { story, Content, embedUrl };
   })
 );
+
+const sortedStories = [...renderedStories].sort((a, b) => {
+  const dateDiff = a.story.data.date.getTime() - b.story.data.date.getTime();
+  if (dateDiff !== 0) return dateDiff;
+  return a.story.data.title.localeCompare(b.story.data.title);
+});
 ---
 
-<section class="timeline-section">
-  <h2>Story Timeline</h2>
+<section class="timeline-section" data-timeline>
+  <div class="timeline-header">
+    <h2>Story Timeline</h2>
+    {
+      sortedStories.length > 1 && (
+        <div class="timeline-sort" role="group" aria-label="Sort timeline">
+          <button type="button" class="timeline-sort__btn" data-sort="newest" aria-pressed="false">
+            Latest updates
+          </button>
+          <button type="button" class="timeline-sort__btn" data-sort="oldest" aria-pressed="false">
+            From the start
+          </button>
+        </div>
+      )
+    }
+  </div>
   {
-    renderedStories.length === 0 ? (
+    sortedStories.length === 0 ? (
       <p class="empty">Stories coming soon.</p>
     ) : (
-      <ol class="timeline">
-        {renderedStories.map(({ story, Content, embedUrl }) => (
-          <li class="timeline-entry">
+      <ol class="timeline" data-timeline-list>
+        {sortedStories.map(({ story, Content, embedUrl }) => (
+          <li
+            class="timeline-entry"
+            data-date={story.data.date.getTime()}
+            data-title={story.data.title}
+          >
             <div class="timeline-entry__body">
               <time datetime={story.data.date.toISOString().slice(0, 10)}>
                 {story.data.date.toLocaleDateString("en-US", {
@@ -68,12 +92,107 @@ const renderedStories = await Promise.all(
       </ol>
     )
   }
-</section>
+  </section>
+
+<script>
+  type TimelineSortOrder = "newest" | "oldest";
+
+  const TIMELINE_SORT_STORAGE_KEY = "timeline-sort";
+
+  function compareTimelineEntries(a: HTMLLIElement, b: HTMLLIElement, order: TimelineSortOrder): number {
+    const aDate = Number(a.dataset.date);
+    const bDate = Number(b.dataset.date);
+    const dateDiff = order === "newest" ? bDate - aDate : aDate - bDate;
+    if (dateDiff !== 0) return dateDiff;
+    return (a.dataset.title ?? "").localeCompare(b.dataset.title ?? "");
+  }
+
+  function applyTimelineSort(list: HTMLOListElement, order: TimelineSortOrder): void {
+    const entries = Array.from(list.querySelectorAll<HTMLLIElement>(".timeline-entry"));
+    const sorted = [...entries].sort((a, b) => compareTimelineEntries(a, b, order));
+    for (const entry of sorted) {
+      list.appendChild(entry);
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-timeline]").forEach((section) => {
+    const list = section.querySelector<HTMLOListElement>("[data-timeline-list]");
+    const buttons = section.querySelectorAll<HTMLButtonElement>("[data-sort]");
+    if (!list || buttons.length === 0) return;
+
+    const timelineList = list;
+
+    function setSortOrder(order: TimelineSortOrder): void {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.sort === order;
+        button.setAttribute("aria-pressed", String(isActive));
+        button.classList.toggle("is-active", isActive);
+      });
+      applyTimelineSort(timelineList, order);
+      localStorage.setItem(TIMELINE_SORT_STORAGE_KEY, order);
+    }
+
+    const stored = localStorage.getItem(TIMELINE_SORT_STORAGE_KEY);
+    const initialOrder: TimelineSortOrder = stored === "oldest" ? "oldest" : "newest";
+    setSortOrder(initialOrder);
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const order = button.dataset.sort as TimelineSortOrder | undefined;
+        if (order) setSortOrder(order);
+      });
+    });
+  });
+</script>
 
 <style>
+  .timeline-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1rem;
+  }
+
   .timeline-section h2 {
     font-size: 1.1rem;
-    margin-bottom: 1rem;
+    margin: 0;
+  }
+
+  .timeline-sort {
+    display: inline-flex;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .timeline-sort__btn {
+    padding: 0.35rem 0.65rem;
+    font: inherit;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    border: none;
+    background: var(--color-bg-alt);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .timeline-sort__btn + .timeline-sort__btn {
+    border-left: 1px solid var(--color-border);
+  }
+
+  .timeline-sort__btn:hover {
+    color: var(--color-text);
+  }
+
+  .timeline-sort__btn.is-active {
+    background: var(--color-bg);
+    color: var(--color-accent);
+    font-weight: 600;
   }
 
   .empty {

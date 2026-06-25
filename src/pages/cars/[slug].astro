@@ -21,9 +21,7 @@ export async function getStaticPaths() {
 
 const { car } = Astro.props as Props;
 const allStories = await getCollection("stories");
-const carStories = allStories
-  .filter((story) => story.id.startsWith(`${car.data.qrSlug}/`))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const carStories = allStories.filter((story) => story.id.startsWith(`${car.data.qrSlug}/`));
 
 const { Content } = await render(car);
 const heroImage = resolveImage(car.data.heroImage);

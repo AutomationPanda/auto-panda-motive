@@ -152,6 +152,26 @@ test("car page hero visible on mobile", async ({ page }) => {
   }
 });
 
+test("timeline sort toggles order and persists", async ({ page }) => {
+  await page.goto("cars/2006-mercedes-c280/");
+  await page.evaluate(() => localStorage.removeItem("timeline-sort"));
+  await page.reload();
+
+  const timeline = page.locator("[data-timeline-list]");
+  const firstTitle = () => timeline.locator(".timeline-entry h3").first();
+
+  await expect(page.getByRole("button", { name: "Latest updates" })).toHaveAttribute("aria-pressed", "true");
+  await expect(firstTitle()).toHaveText("Reconnecting the reverse camera cable");
+
+  await page.getByRole("button", { name: "From the start" }).click();
+  await expect(page.getByRole("button", { name: "From the start" })).toHaveAttribute("aria-pressed", "true");
+  await expect(firstTitle()).toHaveText("When we first met");
+
+  await page.reload();
+  await expect(page.getByRole("button", { name: "From the start" })).toHaveAttribute("aria-pressed", "true");
+  await expect(firstTitle()).toHaveText("When we first met");
+});
+
 test("theme toggle switches dark mode and persists", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("./");
