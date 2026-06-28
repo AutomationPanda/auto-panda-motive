@@ -23,7 +23,6 @@ const stories = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     images: z.array(z.string()).default([]),
-    videoUrl: z.string().url().optional(),
   }),
 });
 

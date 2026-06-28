@@ -1,10 +1,11 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import CarHero from "../../components/CarHero.astro";
 import PhotoGallery from "../../components/PhotoGallery.astro";
 import StoryTimeline from "../../components/StoryTimeline.astro";
+import { renderMarkdownBody } from "../../markdown";
 import { resolveImage } from "../../utils/image";
 
 interface Props {
@@ -23,7 +24,7 @@ const { car } = Astro.props as Props;
 const allStories = await getCollection("stories");
 const carStories = allStories.filter((story) => story.id.startsWith(`${car.data.qrSlug}/`));
 
-const { Content } = await render(car);
+const overviewHtml = car.body ? await renderMarkdownBody(car.body, car.data) : "";
 const heroImage = resolveImage(car.data.heroImage);
 ---
 
@@ -38,11 +39,7 @@ const heroImage = resolveImage(car.data.heroImage);
   <article class="car-page">
     <CarHero car={car} />
     <div class="container content">
-      {car.body && (
-        <div class="overview">
-          <Content />
-        </div>
-      )}
+      {overviewHtml && <div class="overview" set:html={overviewHtml} />}
       <PhotoGallery images={car.data.gallery} alt={car.data.name} />
       <StoryTimeline stories={carStories} />
     </div>

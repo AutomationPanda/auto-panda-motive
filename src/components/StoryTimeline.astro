@@ -1,8 +1,8 @@
 ---
-import { render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import ImageGrid from "./ImageGrid.astro";
 import Lightbox from "./Lightbox.astro";
+import { renderMarkdownBody } from "../markdown";
 
 function storyLightboxId(storyId: string): string {
   return `story-${storyId.replace(/\//g, "--")}`;
@@ -14,21 +14,10 @@ interface Props {
 
 const { stories } = Astro.props;
 
-function embedVideoUrl(url: string): string | null {
-  const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
-  if (youtubeMatch) return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
-
-  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-  if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
-
-  return null;
-}
-
 const renderedStories = await Promise.all(
   stories.map(async (story) => {
-    const { Content } = await render(story);
-    const embedUrl = story.data.videoUrl ? embedVideoUrl(story.data.videoUrl) : null;
-    return { story, Content, embedUrl };
+    const html = story.body ? await renderMarkdownBody(story.body, story.data) : "";
+    return { story, html };
   })
 );
 
@@ -60,7 +49,7 @@ const sortedStories = [...renderedStories].sort((a, b) => {
       <p class="empty">Stories coming soon.</p>
     ) : (
       <ol class="timeline" data-timeline-list>
-        {sortedStories.map(({ story, Content, embedUrl }) => (
+        {sortedStories.map(({ story, html }) => (
           <li
             class="timeline-entry"
             data-date={story.data.date.getTime()}
@@ -76,9 +65,7 @@ const sortedStories = [...renderedStories].sort((a, b) => {
                 })}
               </time>
               <h3>{story.data.title}</h3>
-              <div class="content">
-                <Content />
-              </div>
+              <div class="content" set:html={html} />
               {story.data.images.length > 0 && (
                 <>
                   <ImageGrid
@@ -89,11 +76,6 @@ const sortedStories = [...renderedStories].sort((a, b) => {
                   />
                   <Lightbox id={storyLightboxId(story.id)} carousel={true} />
                 </>
-              )}
-              {embedUrl && (
-                <div class="video-embed">
-                  <iframe src={embedUrl} title={story.data.title} allowfullscreen loading="lazy" />
-                </div>
               )}
             </div>
           </li>
@@ -314,20 +296,5 @@ const sortedStories = [...renderedStories].sort((a, b) => {
     .timeline-entry:hover :global(.entry-images .image-grid__item img) {
       transform: none;
     }
-  }
-
-  .video-embed {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    margin-top: 0.75rem;
-  }
-
-  .video-embed iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
   }
 </style>
