@@ -12,7 +12,7 @@ const memoryLaneCars = (await getCollection("cars"))
   .filter((car) => car.data.section === "memory-lane")
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
-const heroImage = "/images/hero/home.jpeg";
+const heroImage = "https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/pages/home.jpeg";
 const heroImageAlt = "1970 Volkswagen Beetle and Volkswagen Bus in the driveway";
 ---
 
