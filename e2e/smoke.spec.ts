@@ -172,6 +172,65 @@ test("timeline sort toggles order and persists", async ({ page }) => {
   await expect(firstTitle()).toHaveText("When we first met");
 });
 
+test("story timeline thumbnails share uniform aspect ratio", async ({ page }) => {
+  await page.goto("cars/2006-mercedes-c280/");
+
+  const subframeEntry = page.locator(".timeline-entry", {
+    has: page.getByRole("heading", { name: "Dropping the rear subframe" }),
+  });
+  const thumbs = subframeEntry.locator("[data-image-grid] button img");
+  await expect(thumbs).toHaveCount(6);
+
+  const boxes = await thumbs.evaluateAll((images) =>
+    images.map((img) => {
+      const rect = img.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    })
+  );
+
+  for (const box of boxes) {
+    expect(box.width).toBeGreaterThan(0);
+    expect(Math.abs(box.width / box.height - 4 / 3)).toBeLessThan(0.05);
+  }
+});
+
+test("story timeline image opens lightbox with carousel", async ({ page }) => {
+  await page.goto("cars/2006-mercedes-c280/");
+
+  const subframeEntry = page.locator(".timeline-entry", {
+    has: page.getByRole("heading", { name: "Dropping the rear subframe" }),
+  });
+  await subframeEntry.getByRole("button", { name: "Open image 1 of 6" }).click();
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator("[data-lightbox-image]")).toBeVisible();
+  await expect(dialog.getByText("1 / 6")).toBeVisible();
+
+  await dialog.getByRole("button", { name: "Next image" }).click();
+  await expect(dialog.getByText("2 / 6")).toBeVisible();
+
+  await dialog.getByRole("button", { name: "Close" }).click();
+  await expect(dialog).toBeHidden();
+});
+
+test("single-image story lightbox hides carousel controls", async ({ page }) => {
+  await page.goto("cars/2006-mercedes-c280/");
+
+  const sukiEntry = page.locator(".timeline-entry", {
+    has: page.getByRole("heading", { name: "Suki approves" }),
+  });
+  await sukiEntry.getByRole("button", { name: "Open image 1 of 1" }).click();
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("button", { name: "Previous image" })).toBeHidden();
+  await expect(dialog.getByRole("button", { name: "Next image" })).toBeHidden();
+
+  await dialog.getByRole("button", { name: "Close" }).click();
+  await expect(dialog).toBeHidden();
+});
+
 test("theme toggle switches dark mode and persists", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("./");
