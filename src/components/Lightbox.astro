@@ -1,0 +1,167 @@
+---
+interface Props {
+  id: string;
+  carousel?: boolean;
+}
+
+const { id, carousel = true } = Astro.props;
+---
+
+<dialog class="lightbox" data-lightbox data-lightbox-id={id} aria-label="Image viewer">
+  <button type="button" class="lightbox__close" data-close aria-label="Close">
+    ×
+  </button>
+  {
+    carousel && (
+      <>
+        <button type="button" class="lightbox__nav lightbox__nav--prev" data-prev aria-label="Previous image">
+          ‹
+        </button>
+        <button type="button" class="lightbox__nav lightbox__nav--next" data-next aria-label="Next image">
+          ›
+        </button>
+        <p class="lightbox__counter" data-counter aria-live="polite"></p>
+      </>
+    )
+  }
+  <img src="" alt="" data-lightbox-image />
+</dialog>
+
+<script>
+  function initLightbox(dialog: HTMLDialogElement): void {
+    const lightboxId = dialog.dataset.lightboxId;
+    if (!lightboxId) return;
+
+    const grid = document.querySelector<HTMLElement>(
+      `[data-image-grid][data-lightbox-id="${lightboxId}"]`
+    );
+    const lightboxImage = dialog.querySelector<HTMLImageElement>("[data-lightbox-image]");
+    const closeButton = dialog.querySelector<HTMLElement>("[data-close]");
+    const prevButton = dialog.querySelector<HTMLButtonElement>("[data-prev]");
+    const nextButton = dialog.querySelector<HTMLButtonElement>("[data-next]");
+    const counter = dialog.querySelector<HTMLElement>("[data-counter]");
+
+    if (!grid || !lightboxImage) return;
+
+    const buttons = Array.from(grid.querySelectorAll<HTMLButtonElement>(".image-grid__item"));
+    let currentIndex = 0;
+
+    function showAt(index: number): void {
+      const button = buttons[index];
+      const img = button?.querySelector("img");
+      if (!(img instanceof HTMLImageElement)) return;
+
+      currentIndex = index;
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt;
+
+      if (counter) {
+        counter.textContent = `${index + 1} / ${buttons.length}`;
+      }
+
+      const singleImage = buttons.length <= 1;
+      if (prevButton) prevButton.hidden = singleImage;
+      if (nextButton) nextButton.hidden = singleImage;
+    }
+
+    function showRelative(delta: number): void {
+      if (buttons.length <= 1) return;
+      const nextIndex = (currentIndex + delta + buttons.length) % buttons.length;
+      showAt(nextIndex);
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        showAt(index);
+        dialog.showModal();
+      });
+    });
+
+    closeButton?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    prevButton?.addEventListener("click", () => showRelative(-1));
+    nextButton?.addEventListener("click", () => showRelative(1));
+
+    dialog.addEventListener("keydown", (event) => {
+      if (!dialog.open) return;
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showRelative(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showRelative(1);
+      }
+    });
+  }
+
+  document.querySelectorAll<HTMLDialogElement>("[data-lightbox]").forEach(initLightbox);
+</script>
+
+<style>
+  .lightbox {
+    border: none;
+    padding: 0;
+    max-width: 95vw;
+    max-height: 95vh;
+    background: transparent;
+    overflow: visible;
+  }
+
+  .lightbox::backdrop {
+    background: var(--color-overlay);
+  }
+
+  .lightbox img {
+    display: block;
+    max-width: 90vw;
+    max-height: 85vh;
+    margin: auto;
+  }
+
+  .lightbox__close {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--color-inverse-text);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .lightbox__nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--color-inverse-text);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .lightbox__nav--prev {
+    left: 1rem;
+  }
+
+  .lightbox__nav--next {
+    right: 1rem;
+  }
+
+  .lightbox__counter {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: var(--color-inverse-text);
+    font-size: 0.9rem;
+  }
+</style>
