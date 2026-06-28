@@ -41,7 +41,11 @@ const heroImage = resolveImage(car.data.heroImage);
     <div class="container content">
       {overviewHtml && <div class="overview" set:html={overviewHtml} />}
       <PhotoGallery images={car.data.gallery} alt={car.data.name} />
-      <StoryTimeline stories={carStories} />
+      {carStories.length > 0 ? (
+        <StoryTimeline stories={carStories} />
+      ) : (
+        !overviewHtml && <p class="stories-empty">Stories coming soon.</p>
+      )}
     </div>
   </article>
 </Layout>
@@ -54,6 +58,10 @@ const heroImage = resolveImage(car.data.heroImage);
   }
 
   .overview {
+    color: var(--color-text-muted);
+  }
+
+  .stories-empty {
     color: var(--color-text-muted);
   }
 </style>

@@ -10,3 +10,15 @@ gallery: []
 qrSlug: 1979-vw-bus
 sortOrder: 3
 ---
+
+Meet the "Big Turd!"
+This old Bus sat in a field in eastern North Carolina for decades before I scooped it up.
+It had only one owner, and other than some rust, it was in great shape!
+There were no dents or damages.
+It even had its engine and transmission in it.
+
+This Bus is an ongoing project.
+My wife wanted to restore it for photo shoots.
+I fixed the sliding door, and I replaced the wheels and tires.
+Unfortunately, I haven't been able to do much more to it yet.
+I'll get there someday soon!

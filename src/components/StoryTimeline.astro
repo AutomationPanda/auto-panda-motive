@@ -44,46 +44,40 @@ const sortedStories = [...renderedStories].sort((a, b) => {
       )
     }
   </div>
-  {
-    sortedStories.length === 0 ? (
-      <p class="empty">Stories coming soon.</p>
-    ) : (
-      <ol class="timeline" data-timeline-list>
-        {sortedStories.map(({ story, html }) => (
-          <li
-            class="timeline-entry"
-            data-date={story.data.date.getTime()}
-            data-title={story.data.title}
-          >
-            <div class="timeline-entry__body">
-              <time datetime={story.data.date.toISOString().slice(0, 10)}>
-                {story.data.date.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  timeZone: "UTC",
-                })}
-              </time>
-              <h3>{story.data.title}</h3>
-              <div class="content" set:html={html} />
-              {story.data.images.length > 0 && (
-                <>
-                  <ImageGrid
-                    images={story.data.images}
-                    altPrefix={story.data.title}
-                    lightboxId={storyLightboxId(story.id)}
-                    class="entry-images"
-                  />
-                  <Lightbox id={storyLightboxId(story.id)} carousel={true} />
-                </>
-              )}
-            </div>
-          </li>
-        ))}
-      </ol>
-    )
-  }
-  </section>
+  <ol class="timeline" data-timeline-list>
+    {sortedStories.map(({ story, html }) => (
+      <li
+        class="timeline-entry"
+        data-date={story.data.date.getTime()}
+        data-title={story.data.title}
+      >
+        <div class="timeline-entry__body">
+          <time datetime={story.data.date.toISOString().slice(0, 10)}>
+            {story.data.date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              timeZone: "UTC",
+            })}
+          </time>
+          <h3>{story.data.title}</h3>
+          <div class="content" set:html={html} />
+          {story.data.images.length > 0 && (
+            <>
+              <ImageGrid
+                images={story.data.images}
+                altPrefix={story.data.title}
+                lightboxId={storyLightboxId(story.id)}
+                class="entry-images"
+              />
+              <Lightbox id={storyLightboxId(story.id)} carousel={true} />
+            </>
+          )}
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
 
 <script>
   type TimelineSortOrder = "newest" | "oldest";
@@ -184,10 +178,6 @@ const sortedStories = [...renderedStories].sort((a, b) => {
     background: var(--color-bg);
     color: var(--color-accent);
     font-weight: 600;
-  }
-
-  .empty {
-    color: var(--color-text-muted);
   }
 
   .timeline {
