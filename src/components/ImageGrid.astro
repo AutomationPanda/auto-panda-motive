@@ -1,0 +1,59 @@
+---
+import { resolveImage } from "../utils/image";
+
+interface Props {
+  images: string[];
+  altPrefix: string;
+  lightboxId: string;
+  class?: string;
+}
+
+const { images, altPrefix, lightboxId, class: className } = Astro.props;
+---
+
+{
+  images.length > 0 && (
+    <div
+      class:list={["image-grid", className]}
+      data-image-grid
+      data-lightbox-id={lightboxId}
+    >
+      {images.map((src, index) => (
+        <button
+          type="button"
+          class="image-grid__item"
+          data-index={index}
+          aria-label={`Open image ${index + 1} of ${images.length}`}
+        >
+          <img
+            src={resolveImage(src)}
+            alt={`${altPrefix} - photo ${index + 1}`}
+            loading="lazy"
+          />
+        </button>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .image-grid__item {
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+    cursor: pointer;
+  }
+
+  .image-grid__item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+</style>
