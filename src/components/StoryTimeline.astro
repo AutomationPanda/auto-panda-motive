@@ -1,7 +1,12 @@
 ---
 import { render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import { resolveImage } from "../utils/image";
+import ImageGrid from "./ImageGrid.astro";
+import Lightbox from "./Lightbox.astro";
+
+function storyLightboxId(storyId: string): string {
+  return `story-${storyId.replace(/\//g, "--")}`;
+}
 
 interface Props {
   stories: CollectionEntry<"stories">[];
@@ -75,11 +80,15 @@ const sortedStories = [...renderedStories].sort((a, b) => {
                 <Content />
               </div>
               {story.data.images.length > 0 && (
-                <div class="entry-images">
-                  {story.data.images.map((src, index) => (
-                    <img src={resolveImage(src)} alt={`${story.data.title} image ${index + 1}`} loading="lazy" />
-                  ))}
-                </div>
+                <>
+                  <ImageGrid
+                    images={story.data.images}
+                    altPrefix={story.data.title}
+                    lightboxId={storyLightboxId(story.id)}
+                    class="entry-images"
+                  />
+                  <Lightbox id={storyLightboxId(story.id)} carousel={true} />
+                </>
               )}
               {embedUrl && (
                 <div class="video-embed">
@@ -207,7 +216,7 @@ const sortedStories = [...renderedStories].sort((a, b) => {
   }
 
   .timeline-entry {
-    padding: 0 0 2rem 1.25rem;
+    padding: 0 0 1.25rem 1.25rem;
     position: relative;
   }
 
@@ -269,27 +278,12 @@ const sortedStories = [...renderedStories].sort((a, b) => {
   }
 
   .entry-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.5rem;
     margin-top: 0.75rem;
-  }
-
-  .entry-images img {
-    transition:
-      transform 0.2s ease,
-      filter 0.2s ease;
-  }
-
-  .timeline-entry:hover .entry-images img {
-    transform: scale(1.03);
-    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
   }
 
   @media (prefers-reduced-motion: reduce) {
     .timeline-entry__body,
-    .timeline-entry::before,
-    .entry-images img {
+    .timeline-entry::before {
       transition: none;
     }
 
@@ -298,10 +292,6 @@ const sortedStories = [...renderedStories].sort((a, b) => {
     }
 
     .timeline-entry:hover::before {
-      transform: none;
-    }
-
-    .timeline-entry:hover .entry-images img {
       transform: none;
     }
   }
