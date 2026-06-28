@@ -1,7 +1,10 @@
 ---
 title: "Gotcha day"
 date: 2025-05-22
-images: []
+images:
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-05-22-gotcha.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-05-23-subframe-rust-1.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-05-23-subframe-rust-2.webp
 ---
 
 This was the day that my mom gifted me this car.

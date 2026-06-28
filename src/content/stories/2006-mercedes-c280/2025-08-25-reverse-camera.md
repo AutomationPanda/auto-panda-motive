@@ -1,7 +1,9 @@
 ---
 title: "Reverse camera"
 date: 2025-08-25
-images: []
+images:
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-08-25-reverse-camera-1.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-08-25-reverse-camera-2.webp
 ---
 
 The new Android radio unit came with a connection for a reverse camera.

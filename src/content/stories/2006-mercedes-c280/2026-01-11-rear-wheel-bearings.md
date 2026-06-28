@@ -1,7 +1,11 @@
 ---
 title: "Rear wheel bearings, shocks, and springs"
 date: 2026-01-11
-images: []
+images:
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2026-01-10-rear-bearings-1.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2026-01-11-rear-bearings-2.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2026-01-11-rear-bearings-3.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2026-01-11-rear-bearings-4.webp
 ---
 
 While replacing the rear brakes, I discovered that their dust shields were thoroughly rusted.

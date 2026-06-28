@@ -1,7 +1,13 @@
 ---
 title: "Dropping the rear subframe"
 date: 2025-06-22
-images: []
+images:
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-06-22-subframe-dropped.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-06-22-subframe-rusted-mount.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-06-22-subframe-side.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-06-22-subframe-topdown.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-06-23-subframe-disassembly.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/2006-mercedes-c280/2025-06-25-subframe-rusted-mount.webp
 ---
 
 Replacing the rear subframe was one of the most intense car projects I've ever undertaken.
