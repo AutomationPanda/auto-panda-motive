@@ -277,13 +277,29 @@ const sortedStories = [...renderedStories].sort((a, b) => {
     color: var(--color-text);
   }
 
-  .entry-images {
+  .timeline-entry :global(.entry-images) {
     margin-top: 0.75rem;
+  }
+
+  .timeline-entry :global(.entry-images .image-grid__item) {
+    overflow: visible;
+  }
+
+  .timeline-entry :global(.entry-images .image-grid__item img) {
+    transition:
+      transform 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  .timeline-entry:hover :global(.entry-images .image-grid__item img) {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
   }
 
   @media (prefers-reduced-motion: reduce) {
     .timeline-entry__body,
-    .timeline-entry::before {
+    .timeline-entry::before,
+    .timeline-entry :global(.entry-images .image-grid__item img) {
       transition: none;
     }
 
@@ -292,6 +308,10 @@ const sortedStories = [...renderedStories].sort((a, b) => {
     }
 
     .timeline-entry:hover::before {
+      transform: none;
+    }
+
+    .timeline-entry:hover :global(.entry-images .image-grid__item img) {
       transform: none;
     }
   }
