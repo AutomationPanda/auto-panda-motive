@@ -6,6 +6,11 @@ I built the site with [Astro](https://astro.build/) as a static site.
 
 The site is hosted on GitHub Pages at: https://autopandamotive.com
 
+Site photos live in a separate repository and are served through [jsDelivr](https://www.jsdelivr.com/):
+
+- **Photos repository:** [AutomationPanda/auto-panda-motive-photos](https://github.com/AutomationPanda/auto-panda-motive-photos)
+- **CDN base URL:** `https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/`
+
 
 ## Quickstart
 
@@ -55,7 +60,7 @@ auto-panda-motive/
 ├── e2e/                    # Playwright smoke tests
 ├── public/                 # Static assets served as-is
 │   ├── favicon.svg
-│   └── images/cars/        # Local car photos (optional; CDN URLs also supported)
+│   └── images/             # Image assets
 ├── src/
 │   ├── components/         # Astro UI components (Layout, CarCard, gallery, timeline)
 │   ├── content/
@@ -83,8 +88,8 @@ One `.md` file per car. Frontmatter holds structured data; the body is an option
 | `name`, `year`, `make`, `model` | Display name and specs |
 | `section` | `garage` (currently owned) or `memory-lane` (past cars) |
 | `hook` | One-line summary for cards and the at-a-glance block |
-| `heroImage` | Main photo (local path or CDN URL) |
-| `gallery` | List of gallery image paths or URLs |
+| `heroImage` | Main photo (jsDelivr CDN URL) |
+| `gallery` | List of gallery image CDN URLs |
 | `qrSlug` | URL slug, e.g. `1970-vw-beetle` → `/cars/1970-vw-beetle/` |
 | `sortOrder` | Order on listing pages |
 
@@ -98,10 +103,9 @@ make: Volkswagen
 model: Beetle
 section: garage
 hook: "My first classic, a lifelong project that never really ends."
-heroImage: /images/cars/1970-vw-beetle/hero.jpg
+heroImage: https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/hero.webp
 gallery:
-  - /images/cars/1970-vw-beetle/engine.jpg
-  - https://media.example.com/beetle/interior.jpg
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/engine.webp
 qrSlug: 1970-vw-beetle
 sortOrder: 1
 ---
@@ -118,7 +122,7 @@ One `.md` file per timeline entry, grouped in a subfolder named after the car's 
 title: "Paint job complete"
 date: 2024-06-15
 images:
-  - /images/cars/1970-vw-beetle/paint-after.jpg
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/paint-after.webp
 videoUrl: https://www.youtube.com/watch?v=example
 ---
 
@@ -129,20 +133,45 @@ Stories appear on the car's page in chronological order. This site is not a blog
 
 ### Images
 
-Images can live in the repo or on an external CDN:
+Car and page photos are **not** stored in this repository. They live in
+[auto-panda-motive-photos](https://github.com/AutomationPanda/auto-panda-motive-photos)
+and are served through jsDelivr. Reference them with full CDN URLs in frontmatter:
 
-- **In repo:** place files under `public/images/cars/<qrSlug>/` and reference them as `/images/cars/<qrSlug>/filename.jpg`
-- **CDN:** use a full `https://` URL in frontmatter
+```
+https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/<filepath>
+```
+
+Typical paths:
+
+| Asset | Path in photos repo |
+|-------|---------------------|
+| Car hero | `images/cars/<qrSlug>/hero.webp` |
+| Car gallery | `images/cars/<qrSlug>/<name>.webp` |
+| Home hero | `images/pages/home.jpeg` |
+| About hero | `images/pages/about.webp` |
+
+**Adding or updating a photo:**
+
+1. Add or optimize the file in `auto-panda-motive-photos` (that repo includes an
+   `images-to-webp.sh` script for WebP conversion)
+2. Push to `main` on the photos repo (jsDelivr picks up changes after a short cache delay)
+3. Set the full jsDelivr URL in car or story frontmatter in this repo
+4. For hero images, add intrinsic width and height to `src/data/hero-dimensions.ts`
+   so layout is reserved before the image decodes
+
+`resolveImage()` in `src/utils/image.ts` passes CDN URLs through unchanged. Local
+paths under `public/` still work for small structural assets such as the favicon
+and logo.
 
 Videos are never stored in git. Use `videoUrl` with a YouTube or Vimeo link.
 
 ### Publish content changes
 
 1. Add or edit Markdown under `src/content/`
-2. Add or optimize images locally and/or upload to your CDN
+2. Add or update photos in `auto-panda-motive-photos`, then reference their jsDelivr URLs
 3. Run `npm run dev` to preview
-4. Commit and push to `main`
-5. GitHub Actions runs tests and deploys if they pass
+4. Commit and push to `main` on each repository as needed
+5. GitHub Actions runs tests and deploys the site if they pass
 
 Content is copyrighted (see `LICENSE`). Code is open source under MIT terms.
 

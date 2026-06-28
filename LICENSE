@@ -55,9 +55,10 @@ including without limitation:
 - Embedded or linked media presented as part of the site
 - Car names, personal narratives, and other original text in content files
 
-Content includes files under paths such as `src/content/` and
-`public/images/cars/`, along with any other non-Software creative material
-added to this project.
+Content includes files under paths such as `src/content/`, photographs in the
+companion repository
+[AutomationPanda/auto-panda-motive-photos](https://github.com/AutomationPanda/auto-panda-motive-photos),
+and any other non-Software creative material published as part of Auto Panda Motive.
 
 ### Permissions
 

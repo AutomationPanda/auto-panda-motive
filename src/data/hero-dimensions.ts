@@ -3,7 +3,11 @@ export interface HeroImageDimensions {
   height: number;
 }
 
-/** Intrinsic pixel sizes for hero images (reserves layout before decode). */
+/**
+ * Intrinsic pixel sizes for hero images (reserves layout before decode).
+ * Keys must match the full jsDelivr URLs used in content and page components.
+ * Photo files live in https://github.com/AutomationPanda/auto-panda-motive-photos .
+ */
 export const HERO_IMAGE_DIMENSIONS: Readonly<
   Record<string, HeroImageDimensions>
 > = {
