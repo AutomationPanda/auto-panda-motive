@@ -5,3 +5,7 @@ images:
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2023-08-17-new-rocker-arms-1.webp
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2023-08-17-new-rocker-arms-2.webp
 ---
+
+I discovered that one of the rocker mounting bolts had stripped,
+which then caused one of the rocker arms to crack!
+That needed to be replaced expediently.

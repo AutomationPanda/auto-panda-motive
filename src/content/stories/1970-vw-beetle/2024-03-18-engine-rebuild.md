@@ -6,3 +6,6 @@ images:
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2024-03-16-engine-rebuild-2.webp
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2024-03-18-engine-rebuild-3.webp
 ---
+
+Reassembling the engine was basically the reverse of teardown.
+I did a smoke test to make sure there were no more air leaks.

@@ -13,3 +13,6 @@ images:
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2026-03-15-mochi-photo-shoot-9.webp
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2026-03-15-mochi-photo-shoot-10.webp
 ---
+
+Mochi was our new French Bulldog puppy!
+We did a photo shoot with her and the Beetle shortly after adopting her.

@@ -9,3 +9,9 @@ images:
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2022-02-20-new-door-panels-5.webp
   - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1970-vw-beetle/2022-02-20-new-door-panels-6.webp
 ---
+
+I ordered a full TMI interior kit (carpet, seat upholstery, panels, and headliner) from JBugs.
+The first pieces to arrive were the door panels.
+They're pretty straightforward to install.
+The previous ones were in terrible shape.
+The new ones looked so much better.
