@@ -6,7 +6,31 @@ model: "Karmann Ghia Convertible"
 section: memory-lane
 hook: "What a fun car to drive! It's basically a Type 1 with an Italian body. This one was a survivor."
 heroImage: https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/hero.webp
-gallery: []
+gallery:
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-06-11-155910.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-06-11-155927.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-06-11-155942.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-06-12-093529.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-06-12-140418.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-06-12-192522.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-10-09-181749.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-10-09-181835.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2022-10-09-183624.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-01-03-202801.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-170823.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-170919.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-170954.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171006.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171146.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171201.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171250.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171305.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171510.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171643.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-02-21-171924.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-05-17-120353.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-05-17-130906.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/2025-05-17-131038.webp
 qrSlug: 1974-karmann-ghia
 sortOrder: 4
 ---
