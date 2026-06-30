@@ -6,7 +6,17 @@ model: Bus
 section: garage
 hook: "My family and I call it \"the Big Turd.\" I'll start restoring it eventually."
 heroImage: https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/hero.webp
-gallery: []
+gallery:
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-02-14-for-sale.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-02-17-182445.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-02-17-201621.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-02-19-140119.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-02-19-181819.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-02-27-120246.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-03-13-111621.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-03-13-112804.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-03-23-180650.webp
+  - https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1979-vw-bus/2022-04-03-190937.webp
 qrSlug: 1979-vw-bus
 sortOrder: 3
 ---
