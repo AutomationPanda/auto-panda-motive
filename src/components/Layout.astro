@@ -6,10 +6,18 @@ import { withBase } from "../utils/url";
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Stories and pictures from the Auto Panda Motive garage." } = Astro.props;
+const {
+  title,
+  description = "Stories and pictures from the Auto Panda Motive garage.",
+  image = withBase("/images/logo/panda_tire.png"),
+} = Astro.props;
 const siteName = "Auto Panda Motive";
+const pageTitle = title === siteName ? title : `${title} · ${siteName}`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
 const faviconLight = withBase("/favicon.svg");
 const faviconDark = withBase("/favicon-dark.svg");
 ---
@@ -20,6 +28,17 @@ const faviconDark = withBase("/favicon-dark.svg");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -61,7 +80,7 @@ const faviconDark = withBase("/favicon-dark.svg");
       }
     </style>
     <slot name="head" />
-    <title>{title === siteName ? title : `${title} · ${siteName}`}</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <header class="site-header">
