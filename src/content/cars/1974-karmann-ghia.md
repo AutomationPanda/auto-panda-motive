@@ -40,6 +40,11 @@ It's basically a Beetle with an Italian sports car body.
 Volkswagen ultimately built about 400,000 Karmann Ghias from 1955 to 1974.
 My grandfather owned a red Karmann Ghia convertible in the 1970s.
 Growing up, my mom would fondly reminisce over her times working on that car with my grandfather.
+Unfortunately, after several years as a dutiful family car, they had to get rid of it because it rusted out.
+
+![My grandfather's red Karmann Ghia convertible in the 1970s](https://cdn.jsdelivr.net/gh/AutomationPanda/auto-panda-motive-photos/images/cars/1974-karmann-ghia/cline-karmann-ghia.webp)
+
+*My grandfather drove the 1967 VW Karmann Ghia in the photo. My mom drove the white Ford Mustang parked behind it.*
 
 After buying a [Beetle](/cars/1970-vw-beetle/) and a [Bus](/cars/1979-vw-bus/),
 I wanted to round out my burgeoning collection with my own Karmann Ghia.
